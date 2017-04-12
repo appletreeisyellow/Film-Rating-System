@@ -12,7 +12,7 @@
 
 #### Files
 
-- [ ] create.sql
+- [x] create.sql
 - [ ] load.sql
 - [ ] queries.sql
 - [ ] query.php
