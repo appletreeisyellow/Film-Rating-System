@@ -178,11 +178,9 @@ CREATE TABLE Review(
 	
 */
 CREATE TABLE MaxPersonID(
-	id 		int NOT NULL
+	id 		int NOT NULL,
+	UNIQUE(id)
 );
-
-INSERT INTO MaxPersonID (id)
-VALUES (69000);
 
 
 /*
@@ -192,10 +190,10 @@ VALUES (69000);
 	
 */
 CREATE TABLE MaxMovieID(
-	id 		int NOT NULL
+	id 		int NOT NULL,
+	UNIQUE(id)
 );
 
-INSERT INTO MaxMovieID (id)
-VALUES (4750);
+
 
 
