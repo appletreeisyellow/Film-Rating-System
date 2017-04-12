@@ -13,7 +13,7 @@
 #### Files
 
 - [x] create.sql
-- [ ] load.sql
+- [x] load.sql
 - [ ] queries.sql
 - [ ] query.php
 - [ ] violate.sql
