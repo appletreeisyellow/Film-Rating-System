@@ -12,8 +12,8 @@
 
 #### Files
 
-- [ ] create.sql
-- [ ] load.sql
+- [x] create.sql
+- [x] load.sql
 - [ ] queries.sql
 - [ ] query.php
 - [ ] violate.sql
