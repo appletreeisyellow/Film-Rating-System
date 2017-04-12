@@ -1,17 +1,3 @@
-/*
-
-TODO:
-  - Create tables
-  - 12 constrains
-    - 3 PRIMARY KEY
-    - 6 FORIEN KEY
-    - 3 CHECK
-  - "ENGINE = INNODB"
-  - For each constraint, write English description as a comment.
-  - ???
-
-*/
-
 
 /*
 	Constraints:
@@ -31,8 +17,7 @@ CREATE TABLE Movie(
 	rating 		varchar(10) NOT NULL, 
 	company 	varchar(50) NOT NULL,
 	PRIMARY KEY(id),
-	CHECK (rating = "G" OR rating = "PG" OR rating = "PG-13" OR rating = "R" OR rating = "NC-17"),
-	ENGINE = INNODB
+	CHECK (rating = "G" OR rating = "PG" OR rating = "PG-13" OR rating = "R" OR rating = "NC-17")
 );
 
 
@@ -41,7 +26,13 @@ CREATE TABLE Movie(
 	Every actor has a unique id number
 	Every actor must have last name and first name
 	Every actor must have sex
-	Every actor must have a date of birth.
+	Every actor must have a date of birth
+
+	If a person is both an actor and a director, 
+	the person will have the same ID both in the Actor 
+	and the Director table
+
+	TODO: id between Actor and Director?
 */
 CREATE TABLE Actor(
 	id 			int NOT NULL, 
@@ -50,123 +41,161 @@ CREATE TABLE Actor(
 	sex 		varchar(6) NOT NULL, 
 	dob 		date NOT NULL, 
 	dod 		date,
-	PRIMARY KEY(id),
-	ENGINE = INNODB
+	PRIMARY KEY(id)
 );
 
 
 /*
 	Constraints:
-	mid is unique and is foreign key reference from Movie(id)
-	
+	mid is unique and is a foreign key reference from Movie(id)
+	Every sale must have total number of tickets sold
+	Every sale must have total Income
 */
 CREATE TABLE Sales(
-	mid int, 
-	ticketsSold int, 
-	totalIncome int,
-	ENGINE = INNODB
-);
+	mid 		int NOT NULL, 
+	ticketsSold int NOT NULL, 
+	totalIncome int NOT NULL,
+	UNIQUE(mid),
+	FOREIGN KEY (mid) references Movie(id)
+) ENGINE = INNODB;
 
 
 /*
 	Constraints:
 	Every director has a unique id number
+	Every actor must have last name and first name
+	Every actor must have a date of birth
 	
+	If a person is both an actor and a director, 
+	the person will have the same ID both in the Actor 
+	and the Director table
 */
 CREATE TABLE Director(
-	id int, 
-	last varchar(20), 
-	first varchar(20), 
-	dob date, 
-	dod date,
-	ENGINE = INNODB
+	id 		int NOT NULL, 
+	last 	varchar(20) NOT NULL, 
+	first 	varchar(20) NOT NULL, 
+	dob 	date NOT NULL, 
+	dod 	date,
+	PRIMARY KEY (id)
 );
 
 
 /*
 	Constraints:
-	
+	Every MovieGenre has a unique movie id 
+	Every mid is a foreign key reference from Movie(id)
+	Every movie must have genre
 	
 */
 CREATE TABLE MovieGenre(
-	mid int, 
-	genre varchar(20),
-	ENGINE = INNODB
-);
+	mid 	int NOT NULL, 
+	genre 	varchar(20) NOT NULL,
+	UNIQUE(mid),
+	FOREIGN KEY (mid) references Movie(id)
+) ENGINE = INNODB;
 
 
 /*
 	Constraints:
-	
+	Every entry must have mid and did
+	mid 
+	mid is the id of a movie, references from Movie(id)
+	did is the id of the director of the movie, references from Director(id)
 	
 */
 CREATE TABLE MovieDirector(
-	id int, 
-	did int,
-	ENGINE = INNODB
-);
+	mid 	int NOT NULL, 
+	did 	int NOT NULL,
+	UNIQUE(mid),
+	FOREIGN KEY (mid) references Movie(id),
+	FOREIGN KEY (did) references Director(id)
+) ENGINE = INNODB;
 
 
 /*
 	Constraints:
-	
+	Every entry must have mid, aid, and role
+	mid is unique
+	mid is the id of a movie, references from Movie(id)
+	aid is the id of an actor, references from Actor(id)
 	
 */
 CREATE TABLE MovieActor(
-	mid int, 
-	aid int, 
-	role varchar(50)
-	ENGINE = INNODB
-);
+	mid 	int NOT NULL, 
+	aid 	int NOT NULL, 
+	role 	varchar(50) NOT NULL,
+	UNIQUE(mid),
+	FOREIGN KEY (mid) references Movie(id),
+	FOREIGN KEY (aid) references Actor(id)
+) ENGINE = INNODB;
 
 
 /*
 	Constraints:
-	
+	Every entry must have mid, imdb, and rot
+	mid is unique
+	mid is the id of a movie, references from Movie(id)
+	imdb and rot ratings are between 1 and 100
 	
 */
 CREATE TABLE MovieRating(
-	mid int, 
-	imdb int, 
-	rot int,
-	ENGINE = INNODB
-);
+	mid 	int NOT NULL, 
+	imdb 	int NOT NULL, 
+	rot 	int NOT NULL,
+	UNIQUE(mid),
+	FOREIGN KEY (mid) references Movie(id),
+	CHECK (imdb >= 1 AND imdb <= 100),
+	CHECK (rot >= 1 AND rot <= 100)
+) ENGINE = INNODB;
 
 
 /*
 	Constraints:
-	
+	Each tuple must have name of the reviewer, 
+	  the timestamp of the review, the movie id
+	  the rating that the reviewer gave the movie 
+	  (x out of 5), and additional comments about 
+	  the movie 
+	mid is the id of a movie, references from Movie(id)
+	rating should be between 0 and 5
 	
 */
 CREATE TABLE Review(
-	name varchar(20), 
-	time timestamp, 
-	mid int, 
-	rating int, 
-	comment varchar(500),
-	ENGINE = INNODB
-);
+	name 	varchar(20) NOT NULL, 
+	time 	timestamp NOT NULL, 
+	mid 	int NOT NULL, 
+	rating 	int NOT NULL, 
+	comment varchar(500) NOT NULL,
+	FOREIGN KEY (mid) references Movie(id),
+	CHECK (rating >= 0 AND rating <=5)
+) ENGINE = INNODB;
 
 
 /*
 	Constraints:
-	
+	MaxPersonID must have an id
+	This id is the id for a new added actor/director
 	
 */
 CREATE TABLE MaxPersonID(
-	id int,
-	ENGINE = INNODB
+	id 		int NOT NULL
 );
+
+INSERT INTO MaxPersonID (id)
+VALUES (69000);
 
 
 /*
 	Constraints:
-	
+	MaxMovieID must have an id
+	This id is the id for a new added movie
 	
 */
 CREATE TABLE MaxMovieID(
-	id int,
-	ENGINE = INNODB
+	id 		int NOT NULL
 );
+
+INSERT INTO MaxMovieID (id)
+VALUES (4750);
 
 
