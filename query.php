@@ -13,7 +13,9 @@ TODO
 <body>
 <p>Please type an SQL query in the following box.</p>
 
-<form action="http://form.url.com/servlet/serletName" method="GET"> <!--what url should be used here -->
+<form action="query.php" method="GET">
+
+<!--<form action="~/www/query.php" method="GET"> -->
 
 <!--use textarea for inputing query-->
 <TEXTAREA NAME="query" ROWS=8 COLS=60> 
@@ -25,36 +27,36 @@ TODO
 </form>
 <?php
 
-<!--Use GET function to get input from user-->
-$query = $_GET["query"]; 
-if($query){
+	# GET function to get input from user
+	$query = $_GET["query"]; 
+	if($query){
 
-	<!-- connect to mysql-->
-	$db_connection = mysql_connect("localhost", "cs143", ""); 
+		# connect to mysql
+		$db_connection = mysql_connect("localhost", "cs143", ""); 
 
-	<!-- if the connection fails, output error msg and exit-->
-	if(!$db_connection) { 
-    $errmsg = mysql_error($db_connection);
-    print "Connection failed: $errmsg <br />;
-    exit(1);
+		# if the connection fails, output error msg and exit
+		if(!$db_connection) { 
+	    $errmsg = mysql_error($db_connection);
+	    print "Connection failed: $errmsg <br />";
+	    exit(1);
+		}
+
+		# sanitize user input, remove "special" characters
+		$sanitized_query = mysql_real_escape_string($query, $db_connection); 
+
+		# select database
+		mysql_select_db("TEST", $db_connection); 
+
+		# retrieve resutls 
+		$rs = mysql_query($sanitized_query, $db_connection); 
+
+		# close connections -->
+		mysql_close($db_connection); 
+
+		# output query result -->
+		echo "Results from MySQL"."<br />"; 
+		echo $rs."<br />"; 
 	}
-
-	<!-- sanitize user input, remove "special" characters-->
-	$sanitized_query = mysql_real_escape_string($query, $db_connection); 
-
-	<!-- select database-->
-	mysql_select_db("TEST", $db_connection); 
-
-	<!-- retrieve resutls -->
-	$rs = mysql_query($sanitized_query, $db_connection); 
-
-	<!--close connections -->
-	mysql_close($db_connection); 
-
-	<!--output query result -->
-	echo "Results from MySQL"."<br />"; 
-	echo $rs."<br />"; 
-}
 
 
 ?>
