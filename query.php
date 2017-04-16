@@ -1,3 +1,4 @@
+<html>
 <head><title>CS143 Project 1A: Web Query Interface</title></head> 
 <body>
 <p>Please type an SQL query in the following box.</p>
@@ -5,63 +6,37 @@
 <p>Example: SELECT * FROM Actor WHERE id=10;</p>
 <form action="query.php" method="GET">
 
-<!--<form action="~/www/query.php" method="GET"> -->
-
 <!--use textarea for inputing query-->
 <TEXTAREA NAME="query" ROWS=8 COLS=60> 
 </TEXTAREA><br />
-	<!--use textarea for inputing query-->
-	<TEXTAREA NAME="query" ROWS=8 COLS=60> 
-	</TEXTAREA><br />
 
 <!--submit button -->
-<input type="submit" value ="Submit"/>
-	<!--submit button -->
-	<input type="submit" value ="Submit"/>
+<input type="submit" value ="Submit">
 
 </form>
 <?php
 
-	# GET function to get input from user
-	$query = $_GET["query"]; 
-	if($query){
 //Use GET function to get input from user
 $query = $_GET["query"]; 
 if($query){
 
-		# connect to mysql
-		$db_connection = mysql_connect("localhost", "cs143", ""); 
-
-		# if the connection fails, output error msg and exit
-		if(!$db_connection) { 
-	    $errmsg = mysql_error($db_connection);
-	    print "Connection failed: $errmsg <br />";
-	    exit(1);
-		}
 	//connect to mysql
 	$db_connection = mysql_connect("localhost", "cs143", ""); 
 
-		# sanitize user input, remove "special" characters
-		$sanitized_query = mysql_real_escape_string($query, $db_connection); 
 	//select database
 	mysql_select_db("CS143", $db_connection); 
 
-		# select database
-		mysql_select_db("TEST", $db_connection); 
 	//if the connection fails, output error msg and exit
-	if(!$db_connection) { 
+	if(!$db_connection){ 
     	$errmsg = mysql_error($db_connection);
     	print "Connection failed: $errmsg <br />";
     	exit(1);
 	}
 
-		# retrieve resutls 
-		$rs = mysql_query($sanitized_query, $db_connection); 
 	echo "Executed query: <code>{$query}</code><br>";
-
+    
 	//sanitize user input, remove "special" characters
 	//$sanitized_query = mysql_real_escape_string($query, $db_connection); 
-
 
 	//retrieve resutls
 	//$result = mysql_query($sanitized_query, $db_connection); 
@@ -91,24 +66,21 @@ if($query){
 				}
 			}
 			echo "</tr>";
-
-		# close connections -->
-		mysql_close($db_connection); 
 		}
-
-		# output query result -->
-		echo "Results from MySQL"."<br />"; 
-		echo $rs."<br />"; 
-		echo "</table>";
+		echo "</table>";	
 	}
+		
 	//free result
 	mysql_free_result($result);
 
+
 	//close connections
 	mysql_close($db_connection); 
+	
 
 }
+
 ?>
 
 </body>
-</html> 
+</html>
