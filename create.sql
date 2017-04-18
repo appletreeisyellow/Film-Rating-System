@@ -57,6 +57,8 @@ CREATE TABLE Sales(
 	totalIncome int NOT NULL,
 	UNIQUE(mid),
 	FOREIGN KEY (mid) references Movie(id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 
@@ -92,6 +94,8 @@ CREATE TABLE MovieGenre(
 	genre 	varchar(20) NOT NULL,
 	UNIQUE(mid),
 	FOREIGN KEY (mid) references Movie(id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 
@@ -107,8 +111,12 @@ CREATE TABLE MovieDirector(
 	mid 	int NOT NULL, 
 	did 	int NOT NULL,
 	UNIQUE(mid),
-	FOREIGN KEY (mid) references Movie(id),
+	FOREIGN KEY (mid) references Movie(id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	FOREIGN KEY (did) references Director(id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 
@@ -125,8 +133,12 @@ CREATE TABLE MovieActor(
 	aid 	int NOT NULL, 
 	role 	varchar(50) NOT NULL,
 	UNIQUE(mid),
-	FOREIGN KEY (mid) references Movie(id),
+	FOREIGN KEY (mid) references Movie(id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	FOREIGN KEY (aid) references Actor(id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE
 ) ENGINE = INNODB;
 
 
@@ -143,7 +155,9 @@ CREATE TABLE MovieRating(
 	imdb 	int NOT NULL, 
 	rot 	int NOT NULL,
 	UNIQUE(mid),
-	FOREIGN KEY (mid) references Movie(id),
+	FOREIGN KEY (mid) references Movie(id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	CHECK (imdb >= 1 AND imdb <= 100),
 	CHECK (rot >= 1 AND rot <= 100)
 ) ENGINE = INNODB;
@@ -166,7 +180,9 @@ CREATE TABLE Review(
 	mid 	int NOT NULL, 
 	rating 	int NOT NULL, 
 	comment varchar(500) NOT NULL,
-	FOREIGN KEY (mid) references Movie(id),
+	FOREIGN KEY (mid) references Movie(id)
+	ON DELETE CASCADE
+	ON UPDATE CASCADE,
 	CHECK (rating >= 0 AND rating <=5)
 ) ENGINE = INNODB;
 
