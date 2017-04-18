@@ -3,6 +3,8 @@
 # Please also make sure actor names are in this format:  <firstname> <lastname>   (seperated by a single space). 
 # You may need to use MySQL CONCAT Function (very important).
 
+
+
 CREATE VIEW ActorNames(last, first) AS
 	SELECT last, first
 	FROM Actor
@@ -19,6 +21,8 @@ CREATE VIEW ActorNames(last, first) AS
 
 SELECT CONCAT(first, ' ', last)
 FROM ActorNames;
+
+								
 
 
 # Give me the count of all the actors who acted in multiple movies.

@@ -1,5 +1,21 @@
 
 /*
+DROP TABLE Sales;
+DROP TABLE MovieGenre;
+DROP TABLE MovieDirector;
+DROP TABLE MovieActor;
+DROP TABLE MovieRating;
+DROP TABLE Review;
+
+DROP TABLE Movie;
+DROP TABLE Actor;
+DROP TABLE Director;
+
+DROP TABLE MaxPersonID;
+DROP TABLE MaxMovieID;
+*/
+
+/*
 	Constraints:
 	Every movie has a unique identification number.
 	Every movie must have a title.
@@ -132,7 +148,6 @@ CREATE TABLE MovieActor(
 	mid 	int NOT NULL, 
 	aid 	int NOT NULL, 
 	role 	varchar(50) NOT NULL,
-	UNIQUE(mid),
 	FOREIGN KEY (mid) references Movie(id)
 	ON DELETE CASCADE
 	ON UPDATE CASCADE,
