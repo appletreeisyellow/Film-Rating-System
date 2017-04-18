@@ -139,7 +139,6 @@ CREATE TABLE MovieDirector(
 /*
 	Constraints:
 	Every entry must have mid, aid, and role
-	mid is unique
 	mid is the id of a movie, references from Movie(id)
 	aid is the id of an actor, references from Actor(id)
 	
