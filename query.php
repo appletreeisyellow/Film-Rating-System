@@ -6,12 +6,12 @@
 <p>Example: SELECT * FROM Actor WHERE id=10;</p>
 <form action="query.php" method="GET">
 
-<!--use textarea for inputing query-->
-<TEXTAREA NAME="query" ROWS=8 COLS=60> 
-</TEXTAREA><br />
+	<!--use textarea for inputing query-->
+	<TEXTAREA NAME="query" ROWS=8 COLS=60></TEXTAREA>
+	<br />
 
-<!--submit button -->
-<input type="submit" value ="Submit">
+	<!--submit button -->
+	<input type="submit" value ="Submit">
 
 </form>
 <?php
