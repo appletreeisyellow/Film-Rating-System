@@ -14,7 +14,7 @@
 
 - [x] create.sql
 - [x] load.sql
-- [ ] queries.sql
-- [ ] query.php
+- [x] queries.sql
+- [x] query.php
 - [ ] violate.sql
 
