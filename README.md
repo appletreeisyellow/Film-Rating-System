@@ -1,4 +1,6 @@
-# CS143 Project 1A Spring 2017
+# CS143 Project 1 Spring 2017
+
+## 1A
 
 [Here](http://yellowstone.cs.ucla.edu/cs143/project/project1A.html) is the spec for Project 1A
 
@@ -18,3 +20,16 @@
 - [x] query.php
 - [x] violate.sql
 
+## 1B 
+
+[Here](http://yellowstone.cs.ucla.edu/cs143/project/project1B.html) is the spec for Project 1B
+
+#### Overview
+
+#### Files
+
+- [ ] create.sql
+- [ ] load.sql
+- [ ] index.php
+- [ ] search.php
+- [ ] others.php
