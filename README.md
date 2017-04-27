@@ -28,8 +28,8 @@
 
 #### Files
 
-- [ ] create.sql
-- [ ] load.sql
+- [x] create.sql
+- [x] load.sql
 - [ ] index.php
 - [ ] search.php
 - [ ] others.php
