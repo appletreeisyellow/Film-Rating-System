@@ -54,6 +54,11 @@
 
 - [x] create.sql
 - [x] load.sql
-- [ ] index.php
+- [x] index.php
+- [ ] addActorDirector.php
+- [ ] addMovieActor.php
+- [ ] addMovieDirector.php
+- [ ] addMovieInfo.php
+- [ ] showActor.php
+- [ ] showMovie.php
 - [ ] search.php
-- [ ] others.php
