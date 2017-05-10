@@ -188,8 +188,12 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
 
   <p></p>
   <!--Specify gender -->
-  Female<INPUT TYPE = "radio" NAME="Gender" VALUE = "1" CHECKED>
-  Male<INPUT TYPE = "radio" NAME="Gender" VALUE = "2"><br>
+  Female<input type="radio" name="Gender" <?php if (isset($gender) && $gender=="1") echo "checked";?> value="1">
+     <!--<INPUT TYPE = "radio" NAME="Gender" VALUE = "1" > -->
+  
+  Male<input type="radio" name="Gender" <?php if (isset($gender) && $gender=="2") echo "checked";?> value="2">
+
+  <!--<INPUT TYPE = "radio" NAME="Gender" VALUE = "2"><br> -->
   
   <!--Input dob -->
   <br>
