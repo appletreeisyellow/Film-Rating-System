@@ -11,8 +11,8 @@
 
 <?php
 
-$first = $last = $DOB = $dobmonth = $dobday = $dodyear = $dodmonth = $dodday = "";
-$doderr = $doberr = $firsterr = $lasterr = "";
+$role = $first = $last = $gender = $DOB = $dobmonth = $dobday = $dodyear = $dodmonth = $dodday = "";
+$doderr = $doberr = $firsterr = $lasterr = $roleerr = $gendererr = "";
 //function validate_input
 //Strip unnecessary characters (extra space, tab, newline) 
 //get rid of  back slash 
@@ -103,6 +103,10 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
   $dodmonth = $_POST["dodmonth"];
   $dodday = $_POST["dodday"];
 
+  if(empty($role)){
+  	$roleerr = "Plese select actor or director";
+  }
+
   if(empty($first)){
     $firsterr = "First name is required";
   }
@@ -128,6 +132,10 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
       //check if the name contains special character
       //if so, output error msg
     }
+  }
+
+  if(empty($gender) && $role =="1"){
+  	$gendererr = "Please select gender";
   }
 
   if(!checkdate($dobmonth, $dobday,$dobyear)){
@@ -177,8 +185,10 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
 
   <!--choose to add acotr and/or director information -->
-  Actor<INPUT TYPE = "radio" NAME="Title" VALUE = "1" CHECKED>
-  Director<INPUT TYPE = "radio" NAME="Title" VALUE = "2"><br>
+  Actor <INPUT TYPE = "radio" NAME="Title" VALUE = "1" <?php if (isset($role) && $role=="1") echo "checked";?>>
+  Director <INPUT TYPE = "radio" NAME="Title" VALUE = "2" <?php if (isset($role) && $role=="2") echo "checked";?>>
+  <span class = "error">* <?php echo $roleerr;?></span>
+
   
   <br>First Name<br><INPUT TYPE = "text" NAME ="First" VALUE="<?php echo $first; ?>">
   <span class = "error">* <?php echo $firsterr;?></span>
@@ -188,15 +198,16 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
 
   <p></p>
   <!--Specify gender -->
-  Female<input type="radio" name="Gender" <?php if (isset($gender) && $gender=="1") echo "checked";?> value="1">
+  Female <input type="radio" name="Gender" <?php if (isset($gender) && $gender=="1") echo "checked";?> value="1">
      <!--<INPUT TYPE = "radio" NAME="Gender" VALUE = "1" > -->
-  
-  Male<input type="radio" name="Gender" <?php if (isset($gender) && $gender=="2") echo "checked";?> value="2">
+  Male <input type="radio" name="Gender" <?php if (isset($gender) && $gender=="2") echo "checked";?> value="2">
+  <span class = "error">* <?php echo $gendererr;?></span>
+
 
   <!--<INPUT TYPE = "radio" NAME="Gender" VALUE = "2"><br> -->
   
   <!--Input dob -->
-  <br>
+  <br><br>
   Date of Birth<br>Year<INPUT TYPE = "text" NAME ="DOB" VALUE ="<?php echo $dobyear; ?>" SIZE= 4 MAXLENGTH = 4>
   Month<INPUT TYPE = "text" NAME = "dobmonth" VALUE="<?php echo $dobmonth; ?>" SIZE =2 MAXLENGTH = 2>
   
