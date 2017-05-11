@@ -2,8 +2,7 @@
 <html>
 	<title>CS143 Project 1B</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	
+	<link rel="stylesheet" type="text/css" href="lib/stylesheet.css">
 	<style>
 	.w3-theme {color:#fff !important;background-color:#4CAF50 !important}
 	.w3-btn {background-color:#4CAF50;margin-bottom:4px}
@@ -90,6 +89,10 @@
 		<?php include "addMovieDirector.php"; ?>
 	</div>
 
+	<div id="addComment" class="w3-panel w3-padding-large w3-card-4 w3-light-grey" style="display:none;">
+		<?php include "addComment.php"; ?>
+	</div>
+
 	<div id="showActor" class="w3-panel w3-padding-large w3-card-4 w3-light-grey" style="display:none;">
 		<?php include "showActor.php"; ?>
 	</div>
@@ -129,6 +132,7 @@
 		document.getElementById("addMovieInfo").style.display = "none";
 		document.getElementById("addMovieActor").style.display = "none";
 		document.getElementById("addMovieDirector").style.display = "none";
+		document.getElementById("addComment").style.display = "none";
 		document.getElementById("showActor").style.display = "none";
 		document.getElementById("showMovie").style.display = "none";
 		document.getElementById("search").style.display = "none";
