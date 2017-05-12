@@ -15,7 +15,7 @@
 <!-- Top -->
 <div class="w3-top">
   <div class="w3-row w3-white w3-padding">
-    <a class="w3-wide w3-hover-white w3-left w3-button" onclick="show_main('welcomePage')">CS143 DataBase Query System (Demo)</a>
+    <a class="w3-wide w3-hover-white w3-left w3-button" href="index.php">CS143 DataBase Query System (Demo)</a>
   </div>
 
   <div class="w3-bar w3-theme w3-large" style="z-index:4;">
@@ -39,25 +39,26 @@
 	  <div class="w3-container">
 	    <h3>Add new content</h3>
 	  </div>
-	  <a onclick="show_main('addActorDirector')" class="w3-bar-item w3-button">Add Actor/Director</a>
-	  <a onclick="show_main('addMovieInfo')" class="w3-bar-item w3-button">Add Movie Information</a>
-	  <a onclick="show_main('addMovieActor')" class="w3-bar-item w3-button">Add Movie/Actor Relation</a>
-	  <a onclick="show_main('addMovieDirector')" class="w3-bar-item w3-button">Add Movie/Director Relation</a>
+	  <a href="addActorDirector.php" class="w3-bar-item w3-button">Add Actor/Director</a>
+	  <a href="addMovieInfo.php" class="w3-bar-item w3-button">Add Movie Information</a>
+	  <a href="addMovieActor.php" class="w3-bar-item w3-button">Add Movie/Actor Relation</a>
+	  <a href="addMovieDirector.php" class="w3-bar-item w3-button">Add Movie/Director Relation</a>
   </div>
 
   <div id="menu2" class="myMenu" style="display:none">
 	  <div class="w3-container">
 	    <h3>Browsering Content</h3>
 	  </div>
-	  <a onclick="show_main('showActor')" class="w3-bar-item w3-button">Show Actor Information</a>
-	  <a onclick="show_main('showMovie')" class="w3-bar-item w3-button">Show Movie Information</a>
+	  <a href="showActor.php" class="w3-bar-item w3-button">Show Actor Information</a>
+	  <a href="showMovie.php" onclick="show_main('showMovie')" class="w3-bar-item w3-button">Show Movie Information</a>
   </div>
 
   <div id="menu3" class="myMenu" style="display:none">
 	  <div class="w3-container">
 	    <h3>Search Interface</h3>
 	  </div>
-	  <a onclick="show_main('search')" class="w3-bar-item w3-button">Search Actor/Movie</a>
+	  <!--<a onclick="show_main('search')" class="w3-bar-item w3-button">Search Actor/Movie</a>-->
+	  <a href="search.php" class="w3-bar-item w3-button">Search Actor/Movie</a>
   </div>
 
 </div>
@@ -72,7 +73,7 @@
 	  <p class="w3-xlarge">Welcome to CS143 Query System! (Demo)</p>
 	  <p> </p>
 	</div>
-
+<!--
 	<div id="addActorDirector" class="w3-panel w3-padding-large w3-card-4 w3-light-grey" style="display:none;">
 		<?php include "addActorDirector.php"; ?>
 	</div>
@@ -104,42 +105,11 @@
 	<div id="search" class="w3-panel w3-padding-large w3-card-4 w3-light-grey" style="display:none;">
 		<?php include "search.php"; ?>
 	</div>
-
+-->
 <!-- END MAIN -->
 </div>
 
-<script>
-	// Script to open and close the sidebar
-	function w3_open() {
-	    document.getElementById("mySidebar").style.display = "block";
-	    document.getElementById("myOverlay").style.display = "block";
-	}
-	 
-	function w3_close() {
-	    document.getElementById("mySidebar").style.display = "none";
-	    document.getElementById("myOverlay").style.display = "none";
-	}
-	function w3_show_nav(name) {
-	    document.getElementById("menu1").style.display = "none";
-	    document.getElementById("menu2").style.display = "none";
-	    document.getElementById("menu3").style.display = "none";
-	    document.getElementById(name).style.display = "block";
-	    w3_open();
-	}
-	function show_main(id) {
-		document.getElementById("welcomePage").style.display = "none";
-		document.getElementById("addActorDirector").style.display = "none";
-		document.getElementById("addMovieInfo").style.display = "none";
-		document.getElementById("addMovieActor").style.display = "none";
-		document.getElementById("addMovieDirector").style.display = "none";
-		document.getElementById("addComment").style.display = "none";
-		document.getElementById("showActor").style.display = "none";
-		document.getElementById("showMovie").style.display = "none";
-		document.getElementById("search").style.display = "none";
-		document.getElementById(id).style.display = "block";
-	}
-</script>
-
+<script src="lib/functions.js"></script>
 <script src="lib/w3codecolor.js"></script>
 <script>
 	w3CodeColor();
