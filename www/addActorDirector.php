@@ -185,22 +185,22 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
 
   <!--choose to add acotr and/or director information -->
-  Actor <INPUT TYPE = "radio" NAME="Title" VALUE = "1" <?php if (isset($role) && $role=="1") echo "checked";?>>
-  Director <INPUT TYPE = "radio" NAME="Title" VALUE = "2" <?php if (isset($role) && $role=="2") echo "checked";?>>
+  Actor <INPUT TYPE = "radio" NAME="Title" VALUE = "1" <?php echo "checked";?>>
+  Director <INPUT TYPE = "radio" NAME="Title" VALUE = "2">
   <span class = "error">* <?php echo $roleerr;?></span>
 
   
-  <br>First Name<br><INPUT TYPE = "text" NAME ="First" VALUE="<?php echo $first; ?>">
+  <br>First Name<br><INPUT TYPE = "text" NAME ="First" VALUE="">
   <span class = "error">* <?php echo $firsterr;?></span>
   
-  <p></p>Last Name<br><INPUT TYPE = "text" NAME ="Last" VALUE ="<?php echo $last; ?>">
+  <p></p>Last Name<br><INPUT TYPE = "text" NAME ="Last" VALUE ="">
   <span class = "error">* <?php echo $lasterr;?></span>
 
   <p></p>
   <!--Specify gender -->
-  Female <input type="radio" name="Gender" <?php if (isset($gender) && $gender=="1") echo "checked";?> value="1">
+  Female <input type="radio" name="Gender" value="1">
      <!--<INPUT TYPE = "radio" NAME="Gender" VALUE = "1" > -->
-  Male <input type="radio" name="Gender" <?php if (isset($gender) && $gender=="2") echo "checked";?> value="2">
+  Male <input type="radio" name="Gender" value="2">
   <span class = "error">* <?php echo $gendererr;?></span>
 
 
@@ -208,19 +208,19 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
   
   <!--Input dob -->
   <br><br>
-  Date of Birth<br>Year<INPUT TYPE = "text" NAME ="DOB" VALUE ="<?php echo $dobyear; ?>" SIZE= 4 MAXLENGTH = 4>
-  Month<INPUT TYPE = "text" NAME = "dobmonth" VALUE="<?php echo $dobmonth; ?>" SIZE =2 MAXLENGTH = 2>
+  Date of Birth<br>Year<INPUT TYPE = "text" NAME ="DOB" VALUE ="" SIZE= 4 MAXLENGTH = 4>
+  Month<INPUT TYPE = "text" NAME = "dobmonth" VALUE="" SIZE =2 MAXLENGTH = 2>
   
-  Day<INPUT TYPE = "text" NAME = "dobday" VALUE="<?php echo $dobday; ?>" SIZE =2 MAXLENGTH = 2>
+  Day<INPUT TYPE = "text" NAME = "dobday" VALUE="" SIZE =2 MAXLENGTH = 2>
   <span class = "error">* <?php echo $doberr; ?></span>
   <br>i.e: 1970-01-01</br>
   
   <!--Input dod -->
   <br>
-  Date of Die<br>Year<INPUT TYPE = "text" NAME ="DOD" VALUE ="<?php echo $dodyear; ?>" SIZE= 4 MAXLENGTH = 4>
-  Month<INPUT TYPE = "text" NAME = "dodmonth" VALUE="<?php echo $dodmonth; ?>" SIZE =2 MAXLENGTH = 2>
+  Date of Die<br>Year<INPUT TYPE = "text" NAME ="DOD" VALUE ="" SIZE= 4 MAXLENGTH = 4>
+  Month<INPUT TYPE = "text" NAME = "dodmonth" VALUE="" SIZE =2 MAXLENGTH = 2>
   
-  Day<INPUT TYPE = "text" NAME = "dodday" VALUE="<?php echo $dodday; ?>" SIZE =2 MAXLENGTH = 2>
+  Day<INPUT TYPE = "text" NAME = "dodday" VALUE="" SIZE =2 MAXLENGTH = 2>
   <span class = "error"> <?php echo $doderr; ?></span>
   <br><font size ="2">leave blank if alive now</font><br><br>
 

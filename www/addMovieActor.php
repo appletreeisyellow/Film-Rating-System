@@ -82,7 +82,7 @@ while($row = mysql_fetch_row($aresult)){
 ?>
 </SELECT><br><br>
 
-Role<br><INPUT TYPE = "text" NAME = "role" VALUE="<?php echo $role; ?>" SIZE =50 MAXLENGTH = 50>
+Role<br><INPUT TYPE = "text" NAME = "role" VALUE="" SIZE =50 MAXLENGTH = 50>
 <span class = "error"> <?php echo $roleerror; ?></span>
 <br><br>
 

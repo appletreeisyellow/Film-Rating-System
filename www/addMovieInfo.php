@@ -104,22 +104,22 @@ function insert_movie($title, $year, $company, $rating,$genre){
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
 
   <!--choose to add acotr and/or director information -->
-  Title<br><INPUT TYPE = "text" NAME="Title" VALUE = "<?php echo $title; ?>" SIZE = 100 MAXLENGTH = 100>
+  Title<br><INPUT TYPE = "text" NAME="Title" VALUE = "" SIZE = 100 MAXLENGTH = 100>
   <span class = "error">* <?php echo $titleerr;?></span><br><br>
 
-  Year<br><INPUT TYPE = "text" NAME ="Year" VALUE ="<?php echo $year; ?>" SIZE= 4 MAXLENGTH = 4>  
+  Year<br><INPUT TYPE = "text" NAME ="Year" VALUE ="" SIZE= 4 MAXLENGTH = 4>  
   <span class = "error">* <?php echo $yearerr;?></span><br><br>
 
-  Company<br><INPUT TYPE = "text" NAME="Company" VALUE = "<?php echo $company; ?>" SIZE = 50 MAXLENGTH = 50>
+  Company<br><INPUT TYPE = "text" NAME="Company" VALUE = "" SIZE = 50 MAXLENGTH = 50>
   <span class = "error">* <?php echo $comerr;?></span><br><br>
 
   Rating<br>
   <SELECT NAME="Rating">
-  <OPTION <?php if (isset($rating) && $rating=="G") echo "SELECTED";?> VALUE ="G">G
-  <OPTION <?php if (isset($rating) && $rating=="PG") echo "SELECTED";?> VALUE ="PG">PG
-  <OPTION <?php if (isset($rating) && $rating=="PG-13") echo "SELECTED";?> VALUE ="PG-13">PG-13
-  <OPTION <?php if (isset($rating) && $rating=="R") echo "SELECTED";?> VALUE ="R">R
-  <OPTION <?php if (isset($rating) && $rating=="NC-17") echo "SELECTED";?> VALUE ="NC-17">NC-17
+  <OPTION <?php  echo "SELECTED";?> VALUE ="G">G
+  <OPTION VALUE ="PG">PG
+  <OPTION VALUE ="PG-13">PG-13
+  <OPTION VALUE ="R">R
+  <OPTION VALUE ="NC-17">NC-17
   </SELECT><br><br>
 
 
