@@ -10,14 +10,16 @@
 <body>
 
 <?php
-$title = $year = $company = $rating = "";
-$titleerr = $yearerr = $comerr ="";
+$title = $year = $company = $rating = $genre = "";
+$titleerr = $yearerr = $comerr = $genreerr = "";
+$gvalue = array('Action','Adult','Adventure','Animation','Comedy','Crime','Documentary','Drama','Family','Fantasy','Horro','Musical','Mystery','Romance','Sci-Fi','Short','Thriller','War','Western');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $title = $_POST["Title"];
   $year = $_POST["Year"];
   $company = $_POST["Company"];
   $rating = $_POST["Rating"];
+  $genre = $_POST["genre"];
   if(empty($title)){
     $titleerr = "Movie title is required";
   }
@@ -30,13 +32,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if(empty($company)){
     $comerr = "Movie company is required";
   }
+  if(empty($genre)){
+    $genreerr ="Empty genre";
+  }
   //echo "$title, $year, $company, $rating<br>";
-  if(!empty($title) && !empty($year) && !empty($company) && $year<=2017 && $year>0){
-    $msg = insert_movie($title, $year, $company, $rating);
+  if(!empty($title) && !empty($year) && !empty($company) && $year<=2017 && $year>0 &&!empty($genre)){
+    $msg = insert_movie($title, $year, $company, $rating,$genre);
   }
 }
 
-function insert_movie($title, $year, $company, $rating){
+function insert_movie($title, $year, $company, $rating,$genre){
   //connect to mysql
   $db_connection = mysql_connect("localhost", "cs143", ""); 
   //select database
@@ -71,6 +76,12 @@ function insert_movie($title, $year, $company, $rating){
       $com = $row[4];
       $msg = $msg."<br>$id, $tit, $y, $r, $com <br />";
     }
+    //insert genre into moviegenre table
+    $query = "INSERT INTO MovieGenre(mid,genre) VALUES($ID,'$genre')";
+    if(mysql_query($query, $db_connection)==TRUE){
+      $msg = $msg."<br>Insert Into Table MovieGenre Successfully";
+    }
+
   }
   else{
     $msg = "New Record Is Not Inserted<br>";
@@ -110,6 +121,14 @@ function insert_movie($title, $year, $company, $rating){
   <OPTION <?php if (isset($rating) && $rating=="R") echo "SELECTED";?> VALUE ="R">R
   <OPTION <?php if (isset($rating) && $rating=="NC-17") echo "SELECTED";?> VALUE ="NC-17">NC-17
   </SELECT><br><br>
+
+
+  Genre<br>
+  <?php foreach($gvalue as $value){
+
+    echo "<input type ='checkbox' name = 'genre' value =".$value.">".$value." ";
+  }
+  ?><br><br>
 
   <input type="submit" name = "submit" value ="Add">
 
