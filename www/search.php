@@ -88,83 +88,83 @@
 					// Create connection
 					$conn = mysqli_connect($servername, $username, $password, $dbname);
 					// Check connection
-					if (!$conn) {
+					if (mysqli_connect_errno()) {
 					    die("Connection failed: " . mysqli_connect_error());
 					}
 
-					$key = $_GET['searchKey'];
+					$searchKey = $_GET['searchKey'];
 
 					// Collect value of search bar
-					if($key == "") {
+					if($searchKey == "") {
 						echo "<p class=\"w3-text-grey\">Please enter an actor/actress/movie name.</p>";
 					} else {
-						echo "<p class=\"w3-text-grey\">Search: {$key}</p>";
+						echo "<p class=\"w3-text-grey\">Search: {$searchKey}</p>";
 
-						$keyArr = explode(" ", $key);
+						$keyArr = explode(" ", $searchKey);
+
+						// Actor query 
 						$actor_query = "SELECT id, first, last, dob FROM Actor WHERE CONCAT(first, ' ', last) LIKE '%$keyArr[0]%'";
 						for($i = 1; $i < count($keyArr); ++$i) {
 							$actor_query = $actor_query." AND CONCAT(first, ' ', last) LIKE '%$keyArr[$i]%'";
 						}
 						$actor_query = $actor_query.";";
-						$actor_result = mysqli_query($conn, $actor_query);
 
-						if(!$actor_result) {
-							echo "Error description: " . mysqli_error($conn);
-						} else {
-							echo $actor_result;
-							echo "successfully got result!";	
+						if($actor_result=mysqli_query($conn, $actor_query)) {
+							
+							if( mysqli_num_rows($actor_result) == 0) {
+								// Empty query
+								echo "<p class=\"w3-text-grey\">No Actor found named in \"{$searchKey}\"</p>";
+							} else {
+								// Actor Table
+								echo "<p class=\"w3-large\"><b>Matching Actors are:</b></p>";
+								echo "<table class=\"w3-table-all w3-hoverable\">";
+								echo "<tr><th>Name</th> <th>Date of Birth</th></tr>";
+								while($row = mysqli_fetch_row($actor_result)) {
+									echo "<tr>";
+									echo "<td><a href=\"showActor.php?id=$row[0]\" class=\"w3-text-blue\">".$row[1]." ".$row[2]."</td>";
+									echo "<td>".$row[3]."</td>";
+									echo "</tr>";
+								}
+								echo "</table>";
+							}
+							    
+							// Free result set
+							mysqli_free_result($actor_result);
 						}
 
-						
-						if(mysqli_num_rows($actor_result) == 0) {
-							echo "<p class=\"w3-text-grey\">No result of {$key}</p>";
-						} else {
-							echo $actor_result;
+						// Movie query
+						$movie_query = "SELECT id, title, year FROM Movie WHERE title LIKE '%$keyArr[0]%'";
+						for($i=1; $i < count($keyArr); ++$i) {
+							$movie_query = $movie_query." AND title LIKE '%$keyArr[$i]%'";
+						}
+						$movie_query = $movie_query.";";
+
+						if($movie_result=mysqli_query($conn, $movie_query)) {
+
+							if( mysqli_num_rows($movie_result) == 0) {
+								// Empty query
+								echo "<p class=\"w3-text-grey\">No Movie found named in \"{$searchKey}\"</p>";
+							} else {
+								// Movie Table
+								echo "<p class=\"w3-large\"><b>Matching Movies are:</b></p>";
+								echo "<table class=\"w3-table-all w3-hoverable\">";
+								echo "<tr><th>Title</th> <th>Year</th></tr>";
+								while($row=mysqli_fetch_row($movie_result)) {
+									echo "<tr>";
+									echo "<td><a href=\"showMovie.php?id=$row[0]\" class=\"w3-text-blue\">".$row[1]."</td>";
+									echo "<td>".$row[2]."</td>";
+									echo "</tr>";
+								}
+								echo "</table>";
+							}
+							// Free result set
+							mysqli_free_result($movie_result);
 						}
 					}
-					
+					mysqli_close($conn);
 				?>
 			</form><br>
 		</div>
-
-		<!-- Actor/Movie Tables -->
-		<div id="actorTable" style="padding-bottom: 10px;">
-			<p class="w3-large"><b>Matching Actors are:</b></p>
-			<table class="w3-table-all w3-hoverable">
-				<tr>
-					<th>Name</th>
-					<th>Date of Birth</th>
-				</tr>
-				<tr>
-					<td>Sample 1</td>
-					<td>Sample 1</td>
-				</tr>
-				<tr>
-					<td>Sample 2</td>
-					<td>Sample 2</td>
-				</tr>
-			</table>
-		</div>
-
-		<div id="movieTable" style="padding-bottom: 10px;">
-			<p class="w3-large"><b>Matching Movies are:</b></p>
-
-			<table class="w3-table-all w3-hoverable">
-				<tr>
-					<th>Title</th>
-					<th>Year</th>
-				</tr>
-				<tr>
-					<td>Sample 1</td>
-					<td>Sample 1</td>
-				</tr>
-				<tr>
-					<td>Sample 2</td>
-					<td>Sample 2</td>
-				</tr>
-			</table>
-		</div>
-
 	</div>
 
 <!-- END MAIN -->
