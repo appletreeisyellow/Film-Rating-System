@@ -71,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
 
 <?php
 	$aid = $_GET['id'];
-	echo ".".$aid.".";
+	//echo ".".$aid.".";
 	if(!empty($aid)){
 		$db_connection = mysql_connect("localhost", "cs143", ""); 
 		//select database
@@ -119,9 +119,10 @@ if($_SERVER["REQUEST_METHOD"]== "POST"){
 		echo "</tr>";
 		while($row = mysql_fetch_row($result)){
 			echo "<tr>";
+			//$row[0] is movie id 
 			$mresult = mysql_query("SELECT title FROM Movie WHERE id = $row[0]", $db_connection);
 			$mrow = mysql_fetch_row($mresult);
-			echo "<td>".$mrow[0]."</td>"; 	//MovieTitle
+			echo "<td><a href=\"showMovie.php?id=$row[0]\" class=\"w3-text-blue\">".$mrow[0]."</td>"; 	//$mrow[0] is MovieTitle
 			echo "<td>".$row[1]."</td>";	//Role
 			echo "<tr>";
 			
