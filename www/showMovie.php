@@ -165,28 +165,32 @@
 						
 						// Show all user comments.
 						echo "<br><br>";
-						echo "<p class=\"w3-large\"><b>Comments:</b></p><br>";
-						while($row = mysqli_fetch_row($review_result)) {
-							$totalScore = $totalScore + $row[0];
-							echo "<p class=\"w3-small\"><b>Author: </b>".$row[1]." (".$row[2].") <b>Rating: </b>".$row[0]."/5</p>";
-							echo "<p class=\"w3-small\"><b>Comment: </b></p>";
-							echo "<p class=\"w3-small\">".$row[3]."</p>";
-							echo "<br>";
-						}
+						
 
-						echo "<br>";
-
-						// Average Score
 						$reviewNum = mysqli_num_rows($review_result);
-						$avgScore = round(($totalScore / $reviewNum), 2);
-						echo "<p class=\"w3-large\"><b>Average Score: </b>".$avgScore."/5 (".$reviewNum." reviews)</p><br>";
 
+						if($reviewNum == 0) {
+							echo "<p class=\"w3-large w3-text-grey\"><b>No Comments Yet!</b></p>";
+						} else {
+							echo "<p class=\"w3-large\"><b>Comments:</b></p><br>";
+							while($row = mysqli_fetch_row($review_result)) {
+								$totalScore = $totalScore + $row[0];
+								echo "<p class=\"w3-small\"><b>Author: </b>".$row[1]." (".$row[2].") <b>Rating: </b>".$row[0]."/5</p>";
+								echo "<p class=\"w3-small\"><b>Comment: </b></p>";
+								echo "<p class=\"w3-small\">".$row[3]."</p>";
+								echo "<br>";
+							}
+							echo "<br>";
+							// Average Score
+							$avgScore = round(($totalScore / $reviewNum), 2);
+							echo "<p class=\"w3-large\"><b>Average Score: </b>".$avgScore."/5 (".$reviewNum." reviews)</p><br>";
+						}
 						// Free result set
 						mysqli_free_result($review_result);
 					} else {
 						// No reviews yet
 						echo "<br><br>";
-						echo "<p class=\"w3-large w3-text-grey\"><b>No Comments Yet!</b></p>";
+						echo "<p class=\"w3-large w3-text-grey\"><b>No Comment Yet!</b></p>";
 					}
 					
 					// Contain "Add Comment" button which links to Page I3 where users can add comments.
