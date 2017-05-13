@@ -103,10 +103,19 @@
 			$aid = $_POST["actor"];
 			$role = $_POST["role"];
 
+			if(empty($mid)) {
+				$miderror = "Movie is required";
+			} 
+
+			if(empty($aid)) {
+				$aiderror = "Actor/Actress is required";
+			} 
+
 			if(empty($role)){
 				$roleerror = "Role is required";
 			}
-			else{
+
+			if(!empty($mid) && !empty($aid) && !empty($role)) {
 				$query = "INSERT INTO MovieActor(mid, aid, role) VALUES ($mid, $aid,'$role')";
 
 				//if insertion failed, output error message
@@ -126,10 +135,12 @@
 
 		<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 
-			Movie<br>
+			Movie <span class = "error">*<?php echo $miderror; ?></span> <br>
 			<SELECT NAME="movie">  
 			<?php 
+
 			//generate selection box for movie
+			echo "<option value=\"\" disabled selected></option>"; // empty option
 			while($row = mysql_fetch_row($mresult)){
 				$movieid = $row[0];
 				$movietitle = $row[1];
@@ -139,11 +150,11 @@
 			?>
 			</SELECT><br><br>
 
-			Actor<br>
+			Actor <span class = "error">*<?php echo $aiderror; ?></span> <br>
 			<SELECT NAME="actor">  
 			<?php 
 			//generate selection box for actor
-
+			echo "<option value=\"\" disabled selected></option>"; // empty option
 			while($row = mysql_fetch_row($aresult)){
 				$actorid = $row[0];
 				$actorname = $row[1]." ".$row[2];
@@ -153,11 +164,12 @@
 			?>
 			</SELECT><br><br>
 
-			Role<br><INPUT TYPE = "text" NAME = "role" VALUE="" SIZE =50 MAXLENGTH = 50>
-			<span class = "error">*<?php echo $roleerror; ?></span>
+			Role <span class = "error">*<?php echo $roleerror; ?></span><br>
+			<INPUT TYPE = "text" NAME = "role" VALUE="" SIZE =50 MAXLENGTH = 50>
+			
 			<br><br>
 
-			<input type="submit" name = "submit" value ="Add">
+			<input class="w3-button w3-theme w3-hover-white" type="submit" name = "submit" value ="Add">
 
 		</form>
 

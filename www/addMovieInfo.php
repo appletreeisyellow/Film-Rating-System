@@ -77,7 +77,7 @@
     <?php
     $title = $year = $company = $rating = $genre = "";
     $titleerr = $yearerr = $comerr = $genreerr = "";
-    $gvalue = array('Action','Adult','Adventure','Animation','Comedy','Crime','Documentary','Drama','Family','Fantasy','Horro','Musical','Mystery','Romance','Sci-Fi','Short','Thriller','War','Western');
+    $gvalue = array('Action','Adult','Adventure','Animation','Comedy','Crime','Documentary','Drama','Family','Fantasy','Horror','Musical','Mystery','Romance','Sci-Fi','Short','Thriller','War','Western');
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $title = $_POST["Title"];
@@ -96,6 +96,9 @@
       }
       if(empty($company)){
         $comerr = "Movie company is required";
+      }
+      if(empty($rating)) {
+        $ratingerr = "Rating is required";
       }
       if(empty($genre)){
         $genreerr ="Empty genre";
@@ -169,18 +172,22 @@
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
 
       <!--choose to add acotr and/or director information -->
-      Title<br><INPUT TYPE = "text" NAME="Title" VALUE = "" SIZE = 100 MAXLENGTH = 100>
-      <span class = "error">* <?php echo $titleerr;?></span><br><br>
+      Title <span class = "error">* <?php echo $titleerr;?></span><br>
+      <INPUT TYPE = "text" NAME="Title" VALUE = "" SIZE = 100 MAXLENGTH = 100>
+      <br><br>
 
-      Year<br><INPUT TYPE = "text" NAME ="Year" VALUE ="" SIZE= 4 MAXLENGTH = 4>  
-      <span class = "error">* <?php echo $yearerr;?></span><br><br>
+      Year <span class = "error">* <?php echo $yearerr;?></span><br>
+      <INPUT TYPE = "text" NAME ="Year" VALUE ="" SIZE= 4 MAXLENGTH = 4>  
+      <br><br>
 
-      Company<br><INPUT TYPE = "text" NAME="Company" VALUE = "" SIZE = 50 MAXLENGTH = 50>
-      <span class = "error">* <?php echo $comerr;?></span><br><br>
+      Company <span class = "error">* <?php echo $comerr;?></span><br>
+      <INPUT TYPE = "text" NAME="Company" VALUE = "" SIZE = 50 MAXLENGTH = 50>
+      <br><br>
 
-      Rating<br>
+      Rating <span class = "error">* <?php echo $ratingerr;?></span><br>
       <SELECT NAME="Rating">
-      <OPTION <?php  echo "SELECTED";?> VALUE ="G">G
+      echo "<option value=\"\" disabled selected></option>"; // empty option
+      <OPTION VALUE ="G">G
       <OPTION VALUE ="PG">PG
       <OPTION VALUE ="PG-13">PG-13
       <OPTION VALUE ="R">R
@@ -188,15 +195,14 @@
       </SELECT><br><br>
 
 
-      Genre
-      <span class = "error">* <?php echo $comerr;?></span><br>
+      Genre <span class = "error">* <?php echo $comerr;?></span><br>
       <?php foreach($gvalue as $value){
 
         echo "<input type ='checkbox' name = 'genre' value =".$value.">".$value." ";
       }
       ?><br><br>
 
-      <input type="submit" name = "submit" value ="Add">
+      <input class="w3-button w3-theme w3-hover-white" type="submit" name = "submit" value ="Add">
 
     </form>
     <?php 

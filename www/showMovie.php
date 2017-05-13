@@ -70,7 +70,7 @@
 
 	<div id="showMovie" class="w3-panel w3-padding-large w3-card-4 w3-light-grey">
 
-		<p class="w3-xlarge"><b>Movie Information Page</b></p><br>
+		<p class="w3-xlarge"><b>Movie Information Page</b></p>
 
 		<?php
 

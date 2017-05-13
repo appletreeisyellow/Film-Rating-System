@@ -252,48 +252,49 @@
       <!--choose to add acotr and/or director information -->
       Actor <INPUT TYPE = "radio" NAME="Title" VALUE = "1" <?php echo "checked";?>>
       Director <INPUT TYPE = "radio" NAME="Title" VALUE = "2">
-      <span class = "error">* <?php echo $roleerr;?></span>
+      <span class = "error">* <?php echo $roleerr;?></span><br>
 
       
-      <br>First Name<br><INPUT TYPE = "text" NAME ="First" VALUE="">
-      <span class = "error">* <?php echo $firsterr;?></span>
+      <br>First Name <span class = "error">* <?php echo $firsterr;?></span><br>
+      <INPUT TYPE = "text" NAME ="First" VALUE="">
       
-      <p></p>Last Name<br><INPUT TYPE = "text" NAME ="Last" VALUE ="">
-      <span class = "error">* <?php echo $lasterr;?></span>
+      
+      <p></p>Last Name <span class = "error">* <?php echo $lasterr;?></span><br>
+      <INPUT TYPE = "text" NAME ="Last" VALUE ="">
+      
 
       <p></p>
       <!--Specify gender -->
+      Gender <span class = "error">* <?php echo $gendererr;?></span><br>
       Female <input type="radio" name="Gender" value="1">
          <!--<INPUT TYPE = "radio" NAME="Gender" VALUE = "1" > -->
       Male <input type="radio" name="Gender" value="2">
-      <span class = "error">* <?php echo $gendererr;?></span>
+      
 
 
       <!--<INPUT TYPE = "radio" NAME="Gender" VALUE = "2"><br> -->
       
       <!--Input dob -->
       <br><br>
-      Date of Birth<br>Year<INPUT TYPE = "text" NAME ="DOB" VALUE ="" SIZE= 4 MAXLENGTH = 4>
+      Date of Birth <span class = "error">* <?php echo $doberr; ?></span><br>
+      Year<INPUT TYPE = "text" NAME ="DOB" VALUE ="" SIZE= 4 MAXLENGTH = 4>
       Month<INPUT TYPE = "text" NAME = "dobmonth" VALUE="" SIZE =2 MAXLENGTH = 2>
-      
       Day<INPUT TYPE = "text" NAME = "dobday" VALUE="" SIZE =2 MAXLENGTH = 2>
-      <span class = "error">* <?php echo $doberr; ?></span>
       <br>i.e: 1970-01-01</br>
       
       <!--Input dod -->
       <br>
-      Date of Die<br>Year<INPUT TYPE = "text" NAME ="DOD" VALUE ="" SIZE= 4 MAXLENGTH = 4>
+      Date of Die <font size ="1" class="w3-text-gray">(leave blank if alive now)</font> <br>
+      Year<INPUT TYPE = "text" NAME ="DOD" VALUE ="" SIZE= 4 MAXLENGTH = 4>
       Month<INPUT TYPE = "text" NAME = "dodmonth" VALUE="" SIZE =2 MAXLENGTH = 2>
-      
       Day<INPUT TYPE = "text" NAME = "dodday" VALUE="" SIZE =2 MAXLENGTH = 2>
       <span class = "error"> <?php echo $doderr; ?></span>
-      <br><font size ="1">leave blank if alive now</font><br><br>
+      <br><br>
 
-      <input type="submit" name = "submit" value ="Add">
-
+      <input class="w3-button w3-theme w3-hover-white" type="submit" name = "submit" value ="Add">
     </form>
     <?php 
-      echo "<br><p class=\"w3-text-gray\">";
+      echo "<p class=\"w3-text-gray\">";
       echo $output;
       echo "</p><br>";
     ?>

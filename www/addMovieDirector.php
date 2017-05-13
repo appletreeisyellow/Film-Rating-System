@@ -8,6 +8,7 @@
 	.w3-btn {background-color:#4CAF50;margin-bottom:4px}
 	.w3-code{border-left:4px solid #4CAF50}
 	.myMenu {margin-bottom:150px}
+	.error {color: #FF0000;}
 	</style>
 
 <body>
@@ -95,10 +96,11 @@
 		?>
 
 		<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-		Movie<br>
+		Movie <span class = "error">*<?php echo $miderror; ?></span><br>
 		<SELECT NAME="movie">  
 		<?php 
 		//generate selection box for movie
+		echo "<option value=\"\" disabled selected></option>"; // empty option
 		while($row = mysql_fetch_row($mresult)){
 			$movieid = $row[0];
 			$movietitle = $row[1];
@@ -108,11 +110,11 @@
 		?>
 		</SELECT><br><br>
 
-		Director<br>
+		Director <span class = "error">*<?php echo $miderror; ?></span><br>
 		<SELECT NAME="director">  
 		<?php 
 		//generate selection box for director
-
+		echo "<option value=\"\" disabled selected></option>"; // empty option
 		while($row = mysql_fetch_row($dresult)){
 			$directorid = $row[0];
 			$directorname = $row[1]." ".$row[2];
@@ -121,9 +123,9 @@
 		} 
 		?>
 		</SELECT><br><br>
-		<input type="submit" name = "submit" value ="Add">
+		<input class="w3-button w3-theme w3-hover-white" type="submit" name = "submit" value ="Add">
 
-		</form>
+		</form><br>
 
 
 		<?php 
@@ -131,20 +133,29 @@
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 		  $mid = $_POST["movie"];
 		  $did = $_POST["director"];
-		  $query = "INSERT INTO MovieDirector(mid, did) VALUES ($mid, $did)";
 
-		  //if insertion failed, output error message
-		  if(mysql_query($query, $db_connection)==TRUE){
-		    echo "<p class=\"w3-text-grey\">New Record Inserted Successfully</p><br>";
+		  if(empty($mid)) {
+		  	$miderror = "Movie is required";
 		  }
-		  else{
-		    echo "<p class=\"w3-text-grey\">New Record Is Not Inserted</p>";
-		    $errmsg = mysql_error($db_connection);
-		    echo "<p class=\"w3-text-grey\">";
-		    echo $errmsg;
-		    echo "</p><br>";
+		  if(empty($did)) {
+		  	$miderror = "Director is required";
 		  }
-		 
+
+		  if(!empty($mid) && !empty($did)) {
+		  	$query = "INSERT INTO MovieDirector(mid, did) VALUES ($mid, $did)";
+
+			  //if insertion failed, output error message
+			  if(mysql_query($query, $db_connection)==TRUE){
+			    echo "<p class=\"w3-text-grey\">New Record Inserted Successfully</p><br>";
+			  }
+			  else{
+			    echo "<p class=\"w3-text-grey\">New Record Is Not Inserted</p>";
+			    $errmsg = mysql_error($db_connection);
+			    echo "<p class=\"w3-text-grey\">";
+			    echo $errmsg;
+			    echo "</p><br>";
+			  }
+		  }
 		}
 		//free result
 		mysql_free_result($mresult);

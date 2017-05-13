@@ -74,6 +74,8 @@
 		
 		<p class="w3-xlarge"><b>Add New Comment</b></p>
 
+		<p><span class="error">* required field.</span></p>
+
 		<!-- retrieve movie from database -->
 		<?php
 			$mid = $name = $time = $rating = $comment ="";
@@ -90,6 +92,7 @@
 			  exit(1);
 			}
 			$MovieID = $_GET['mid'];
+
 			if(empty($MovieID)){
 				$mresult = mysql_query("SELECT id, title, year FROM Movie", $db_connection); // get movie info
 			}
@@ -97,123 +100,119 @@
 				$mresult = mysql_query("SELECT id, title, year FROM Movie WHERE id = $MovieID");
 			}
 
-		?>
+			$msg ="";
 
-		<?php 
+			//add movie comment into table Review
+			if($_SERVER["REQUEST_METHOD"] == "POST"){
+				$name = $_POST["name"];
+				$mid = $_POST["movie"];
+				$rating = $_POST["rating"];
+				$comment = $_POST["comment"];
 
-		// $query ="SELECT CURRENT_TIMESTAMP()";
-		// $result = mysql_query($query, $db_connection);
-		// $row = mysql_fetch_row($result);
-		// echo $row[0];
-		// $time = $row[0];
-		$msg ="";
-
-		//echo $comment;
-
-		//add movie comment into table Review
-		if($_SERVER["REQUEST_METHOD"] == "POST"){
-			$name = $_POST["name"];
-			$mid = $_POST["movie"];
-			$rating = $_POST["rating"];
-			$comment = $_POST["comment"];
-
-			//get current timestamp
-			$time = date("Y-m-d H:i:s");
-			// echo $time."test<br>";
+				//get current timestamp
+				$time = date("Y-m-d H:i:s");
+				// echo $time."test<br>";
 
 
-			if(empty($comment)){
-				$commerror = "Comment is required";
-			}
-			if(empty($name)){
-				//$nameerr = "Reviewer name is required";
-				$name = "Anonymous";
-			}
-			if(!empty($comment) && !empty($name)){
-				$query = "INSERT INTO Review(name, time, mid, rating, comment) VALUES ('$name', '$time', $mid, $rating, '$comment')";
-
-				//if insertion failed, output error message
-				if(mysql_query($query, $db_connection)==TRUE){
-					$msg = "New Record Inserted Successfully<br>";
+				if(empty($comment)){
+					$commerror = "Comment is required";
 				}
-				else{
-				    $msg = "New Record Is Not Inserted<br>";
-				    $errmsg = mysql_error($db_connection);
-				    $msg = $msg.$errmsg;//generate error msg
+				if(empty($name)){
+					//$nameerr = "Reviewer name is required";
+					$name = "Anonymous";
 				}
+				if(!empty($comment) && !empty($name)){
+					$query = "INSERT INTO Review(name, time, mid, rating, comment) VALUES ('$name', '$time', $mid, $rating, '$comment')";
 
+					//if insertion failed, output error message
+					if(mysql_query($query, $db_connection)==TRUE){
+						$msg = "New Record Inserted Successfully<br>";
+					}
+					else{
+					    $msg = "New Record Is Not Inserted<br>";
+					    $errmsg = mysql_error($db_connection);
+					    $msg = $msg.$errmsg;//generate error msg
+					}
+
+				}
+			   
 			}
-		   
-		}
 
-		?>
+			// form start ================
+			echo "<form method=\"post\" action=\"addComment.php?mid=$MovieID\">";
 
-		<p><span class="error">* required field.</span></p>
+				
+				echo "Your name <span class=\"w3-text-grey\">(leave blank if you want to comment as an Anonymous) </span><br>";
+				echo "<INPUT TYPE = \"text\" NAME = \"name\" VALUE=\"\" SIZE =50 MAXLENGTH = 50>";
+				echo "<span class = \"error\"> <?php echo $nameerr; ?></span><br><br>";
 
-		<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+				echo "Movie<br>";
+				echo "<SELECT NAME=\"movie\">";  
+				
+				//generate selection box for movie
+				while($row = mysql_fetch_row($mresult)){
+					$movieid = $row[0];
+					$movietitle = $row[1];
+					$movieyear = $row[2];
+					echo "<OPTION VALUE = ".$movieid."> ".$movietitle." (".$movieyear.")</OPTION>";
+				} 
+				
+				echo "</SELECT><br><br>";
 
-			<!-- get reviewer name-->
-			Your name (leave blank if you want to comment as an Anonymous) <br>
-			<INPUT TYPE = "text" NAME = "name" VALUE="" SIZE =50 MAXLENGTH = 50>
-			<span class = "error"> <?php echo $nameerr; ?></span><br><br>
+				// get movie rating 
+				echo "Rating <span class = \"error\">*</span><br>";
+				echo "<SELECT NAME=\"rating\">";
+				echo "<OPTION VALUE = 1>1</OPTION>";
+				echo "<OPTION VALUE = 2>2</OPTION>";
+				echo "<OPTION VALUE = 3>3</OPTION>";
+				echo "<OPTION VALUE = 4>4</OPTION>";
+				echo "<OPTION VALUE = 5>5</OPTION>";
+				echo "</SELECT><br><br>";
+				  
+				echo "Comment <span class = \"error\">* <?php echo $commerror; ?></span>";
+				if(empty($comment))
+					echo "<span class=\"error\">".$commerror."</span>";
+				echo "<br><TEXTAREA NAME =\"comment\" ROWS =10 COLS =50></TEXTAREA> <br><br>";
+				
 
-			Movie<br>
-			<SELECT NAME="movie">  
-			<?php 
-			//generate selection box for movie
-			while($row = mysql_fetch_row($mresult)){
-				$movieid = $row[0];
-				$movietitle = $row[1];
-				$movieyear = $row[2];
-				echo "<OPTION VALUE = ".$movieid."> ".$movietitle." (".$movieyear.")</OPTION>";
-			} 
-			?>
-			</SELECT><br><br>
+				echo "<input class=\"w3-button w3-theme w3-hover-white\" type=\"submit\" name = \"submit\" value =\"Add\">";
 
-			<!--get movie rating -->
-			Rating<br>
-			<SELECT NAME="rating">
-			<OPTION VALUE = 1>1</OPTION>
-			<OPTION VALUE = 2>2</OPTION>
-			<OPTION VALUE = 3>3</OPTION>
-			<OPTION VALUE = 4>4</OPTION>
-			<OPTION VALUE = 5>5</OPTION>
-			</SELECT><br><br>
-			  
-			Comment
-			<span class = "error">*<?php echo $roleerror; ?></span><br>
-			<TEXTAREA NAME ="comment" ROWS =10 COLS =50></TEXTAREA>
+				echo "</form>";
+
+			// form end ==================
+
+
+
+			//output success/error message to the reviewer
+			echo "<p class=\"w3-text-grey\">";
+			echo $msg;
+			echo "</p>";
 			
-			<br><br>
-
-			<input type="submit" name = "submit" value ="Add">
-
-		</form>
-
+			if($msg == "New Record Inserted Successfully<br>") { // add successfully
+				echo "<a href=\"showMovie.php?id=$MovieID\" class=\"w3-text-blue\">Go back to see this movie information</a><br><br>";
+			}
+			
 
 
-		<?php
-		//output success/error message to the reviewer
-		echo "<p class=\"w3-text-grey\">";
-		echo $msg;
-		echo "</p>";
-		$query = "SELECT * FROM Review WHERE name = '$name' AND time = '$time' AND mid = $mid AND rating = $rating AND comment = '$comment'";
-		//$query = "SELECT * FROM Review";
-		$result = mysql_query($query, $db_connection);
-		if(!empty($result)){
-			$row = mysql_fetch_row($result);
-			//echo "Reviewer: ".$row[0].", ".$row[1].", MovieID: ".$row[2].", Rating: ".$row[3].", Comment: ".$row[4]."<br>";
-		}
-
-		//free result
-		mysql_free_result($mresult);
-		mysql_free_result($result);
+			//free result
+			mysql_free_result($mresult);
+			mysql_free_result($result);
 
 
-		//close connections
-		mysql_close($db_connection);
+			//close connections
+			mysql_close($db_connection);
 
 		?>
+
+
+
+		
+
+
+		
+
+
+
 
 	</div>
 
