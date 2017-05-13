@@ -15,7 +15,7 @@
 <!-- Top -->
 <div class="w3-top">
   <div class="w3-row w3-white w3-padding">
-    <a class="w3-wide w3-hover-white w3-left w3-button" href="index.php">CS143 DataBase Query System (Demo)</a>
+    <a class="w3-wide w3-hover-white w3-left w3-button" href="index.php">CS143 DataBase Query System</a>
   </div>
 
   <div class="w3-bar w3-theme w3-large" style="z-index:4;">
