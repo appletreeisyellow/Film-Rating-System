@@ -4,7 +4,7 @@
 <div style="padding: 10px 0px;">
 	<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" >
 
-		<input class="searchBar" type="text" name="search" placeholder="Search.."><br><br>
+		<input class="searchBar" type="text" name="searchKey" placeholder="Search.."><br><br>
 		<input type="submit" name = "submit" value ="Search">
 	</form><p></p>
 
@@ -13,56 +13,66 @@
 
 
 <?php
-$aname = "";
+$searchKey = "";
 $namerr ="";
 if($_SERVER["REQUEST_METHOD"]== "POST"){
-	$aname = $_POST["search"];
-	if(empty($aname)){
+	$searchKey = $_POST['searchKey'];
+	if(empty($searchKey)){
 		$namerr = "Empty Search";
 	}
 	else{
-		$names = explode(" ", $aname);
-		$db_connection = mysql_connect("localhost", "cs143", ""); 
-		//select database
-		mysql_select_db("CS143", $db_connection); 
-		//if the connection fails, output error msg and exit
-		if(!$db_connection){ 
-		    $errmsg = mysql_error($db_connection);
-		    print "Connection failed: $errmsg <br />";
-		    exit(1);
+		$servername = "localhost";
+		$username = "cs143";
+		$password = "";
+		$dbname = "CS143";
+
+		// Create connection
+		$conn = mysqli_connect($servername, $username, $password, $dbname);
+		// Check connection
+		if (mysqli_connect_errno()) {
+		    die("Connection failed: " . mysqli_connect_error());
 		}
 
-		$result = mysql_query("SELECT * FROM Actor WHERE last ='$names[1]' AND first ='$names[0]'", $db_connection); // result is an object
-		echo "<p class='w3-large'><b>Actor Information</b></p>";
-		echo "<table border ='1'>";
-		echo "<tr>";
-			echo"<th>Name</th>";
-			echo"<th>Sex</th>";
-			echo"<th>Date of Birth</th>";
-			//echo"<th>Date of Death</th>";
-		echo "</tr>";
-		while($row = mysql_fetch_row($result)){
-			echo "<tr>";
-			echo "<td><a href=\"showActor.php?id=$row[0]\" class=\"w3-text-blue\">".$row[2]." ".$row[1]."</td>"; //name
-			echo "<td>".$row[3]."</td>";	//gender
-			echo "<td>".$row[4]."</td>";	//dob
-			// if(is_null($row[5])){
-			// 	$dod = "Still Alive";
-			// }
-			// else{
-			// 	$dod = $row[5];
-			// }
-			echo "<tr>";
-			
+		echo "<p class=\"w3-text-grey\">Search: {$searchKey}</p>";
+
+		$keyArr = explode(" ", $searchKey);
+
+		// Actor query 
+		$actor_query = "SELECT id, first, last, dob FROM Actor WHERE CONCAT(first, ' ', last) LIKE '%$keyArr[0]%'";
+		for($i = 1; $i < count($keyArr); ++$i) {
+			$actor_query = $actor_query." AND CONCAT(first, ' ', last) LIKE '%$keyArr[$i]%'";
 		}
-		echo "</table>";
+		
+		$actor_query = $actor_query.";";
+
+		if($actor_result=mysqli_query($conn, $actor_query)) {
+			
+			if( mysqli_num_rows($actor_result) == 0) {
+				// Empty query
+				echo "<p class=\"w3-text-grey\">No Actor found named in \"{$searchKey}\"</p>";
+			} 
+			else {
+				// Actor Table
+				echo "<p class=\"w3-large\"><b>Matching Actors are:</b></p>";
+				echo "<table class=\"w3-table-all w3-hoverable\">";
+				echo "<tr><th>Name</th> <th>Date of Birth</th></tr>";
+				while($row = mysqli_fetch_row($actor_result)) {
+					echo "<tr>";
+					echo "<td><a href=\"showActor.php?id=$row[0]\" class=\"w3-text-blue\">".$row[1]." ".$row[2]."</td>";
+					echo "<td>".$row[3]."</td>";
+					echo "</tr>";
+				}
+				echo "</table>";
+			}
+			    
+			// Free result set
+			mysqli_free_result($actor_result);
+		}
 	}
-	//free result
-	mysql_free_result($result);
 
 
 	//close connections
-	mysql_close($db_connection); 
+	mysqli_close($conn);
 	
 
 }
