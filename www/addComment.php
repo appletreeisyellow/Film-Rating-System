@@ -16,7 +16,7 @@
 	  print "Connection failed: $errmsg <br />";
 	  exit(1);
 	}
-	$MovieID = $_GET['id'];
+	$MovieID = $_GET['mid'];
 	if(empty($MovieID)){
 		$mresult = mysql_query("SELECT id, title, year FROM Movie", $db_connection); // get movie info
 	}
