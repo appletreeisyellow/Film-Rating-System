@@ -68,7 +68,7 @@
 <!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
 <div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;">
 
-<!-- ========================= Main content start ======================================== -->
+	<!-- ========================= Main content start ======================================== -->
 	<div id="welcomePage" class="w3-panel w3-padding-large w3-card-4 w3-light-grey">
 	  <p class="w3-xlarge">Welcome to CS143 Query System! (Demo)</p>
 	  <p> </p>
