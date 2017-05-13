@@ -55,10 +55,10 @@
 - [x] create.sql
 - [x] load.sql
 - [x] index.php
-- [ ] addActorDirector.php
-- [ ] addMovieActor.php
-- [ ] addMovieDirector.php
-- [ ] addMovieInfo.php
-- [ ] showActor.php
-- [ ] showMovie.php
-- [ ] search.php
+- [x] addActorDirector.php
+- [x] addMovieActor.php
+- [x] addMovieDirector.php
+- [x] addMovieInfo.php
+- [x] showActor.php
+- [x] showMovie.php
+- [x] search.php
