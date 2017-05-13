@@ -50,14 +50,13 @@
 	    <h3>Browsering Content</h3>
 	  </div>
 	  <a href="showActor.php" class="w3-bar-item w3-button">Show Actor Information</a>
-	  <a href="showMovie.php" onclick="show_main('showMovie')" class="w3-bar-item w3-button">Show Movie Information</a>
+	  <a href="showMovie.php" class="w3-bar-item w3-button">Show Movie Information</a>
   </div>
 
   <div id="menu3" class="myMenu" style="display:none">
 	  <div class="w3-container">
 	    <h3>Search Interface</h3>
 	  </div>
-	  <!--<a onclick="show_main('search')" class="w3-bar-item w3-button">Search Actor/Movie</a>-->
 	  <a href="search.php" class="w3-bar-item w3-button">Search Actor/Movie</a>
   </div>
 

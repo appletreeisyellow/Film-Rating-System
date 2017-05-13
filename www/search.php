@@ -15,7 +15,7 @@
 <!-- Top -->
 <div class="w3-top">
   <div class="w3-row w3-white w3-padding">
-    <a class="w3-wide w3-hover-white w3-left w3-button" href="index.php" ">CS143 DataBase Query System (Demo)</a>
+    <a class="w3-wide w3-hover-white w3-left w3-button" href="index.php">CS143 DataBase Query System (Demo)</a>
   </div>
 
   <div class="w3-bar w3-theme w3-large" style="z-index:4;">
@@ -98,7 +98,6 @@
 					if($searchKey == "") {
 						echo "<p class=\"w3-text-grey\">Please enter an actor/actress/movie name.</p>";
 					} else {
-						echo "<p class=\"w3-text-grey\">Search: {$searchKey}</p>";
 
 						$keyArr = explode(" ", $searchKey);
 
@@ -164,7 +163,7 @@
 					mysqli_close($conn);
 				?>
 			</form><br>
-		</div>
+		</div> <!-- End of Search Bar & Botton -->
 	</div>
 
 <!-- END MAIN -->
