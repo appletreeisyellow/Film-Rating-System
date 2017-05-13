@@ -3,6 +3,9 @@ Our website meets all the criteria.
  - Two browsing pages
  - One search page
 
+Our Add New Actor/Director page only allows letters and whitespace when inputting names.
+It also checks the DOB and DOD is valid or not.
+
 The CSS template used in our website is from w3school: 
 https://www.w3schools.com/w3css/tryit.asp?filename=tryw3css_examples_home
 
@@ -14,9 +17,9 @@ Work:
  - Implemented/decorated a nice interface 
 
 
-Name: Jingyi Zhang
+Name: Jingzi Zhang
 Work:
-
+ - Implemented five input pages, and one browsing page
 
 
 How to improve on collaboration?
