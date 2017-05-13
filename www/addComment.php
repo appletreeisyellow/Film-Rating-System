@@ -4,6 +4,7 @@
 <!-- retrieve movie from database -->
 <?php
 	$mid = $name = $time = $rating = $comment ="";
+	$MovieID ="";
 	$nameerr = $commerror = "";
 	//connect to mysql
 	$db_connection = mysql_connect("localhost", "cs143", ""); 
