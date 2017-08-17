@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-  <title>CS143 Project 1B</title>
+  <title>Mini Film Rating</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="lib/stylesheet.css">
   <style>
-  .w3-theme {color:#fff !important;background-color:#4CAF50 !important}
-  .w3-btn {background-color:#4CAF50;margin-bottom:4px}
-  .w3-code{border-left:4px solid #4CAF50}
+  .w3-theme {color:#fff !important;background-color:#5f4caf !important}
+  .w3-btn {background-color:#5f4caf;margin-bottom:4px}
+  .w3-code{border-left:4px solid #5f4caf}
   .myMenu {margin-bottom:150px}
   .error {color: #FF0000;}
   </style>
@@ -16,7 +16,7 @@
 <!-- Top -->
 <div class="w3-top">
   <div class="w3-row w3-white w3-padding">
-    <a class="w3-wide w3-hover-white w3-left w3-button" href="index.php">CS143 DataBase Query System</a>
+    <a class="w3-wide w3-hover-white w3-left w3-button" href="index.php">Mini Film Rating</a>
   </div>
 
   <div class="w3-bar w3-theme w3-large" style="z-index:4;">
@@ -24,11 +24,12 @@
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="javascript:void(0)" onclick="w3_show_nav('menu1')">Add New Content</a>
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="javascript:void(0)" onclick="w3_show_nav('menu2')">Browsering Content</a>
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="javascript:void(0)" onclick="w3_show_nav('menu3')">Search Interface</a>
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="howToUse.php" title="How To Use">How To Use</a>
   </div>
 </div>
 
 <!-- Sidebar -->
-<div class="w3-sidebar w3-bar-block w3-collapse w3-animate-left" style="z-index:3;width:270px" id="mySidebar">
+<div class="w3-sidebar w3-bar-block w3-collapse" style="z-index:3;width:270px" id="mySidebar">
   <div class="w3-bar w3-hide-large w3-large">
     <a href="javascript:void(0)" onclick="w3_show_nav('menu1')" class="w3-bar-item w3-button w3-theme w3-hover-white w3-padding-16" style="width:50%">Add new content</a>
     <a href="javascript:void(0)" onclick="w3_show_nav('menu2')" class="w3-bar-item w3-button w3-theme w3-hover-white w3-padding-16" style="width:50%">Browsering Content</a>
@@ -304,6 +305,10 @@
 
 <!-- END MAIN -->
 </div>
+
+<footer class="w3-container w3-padding-16">
+  <div class="w3-center">Copyright &copy 2017 Chunchun Ye. All Rights Reserved</div>
+</footer>
 
 <script src="lib/functions.js"></script>
 <script src="lib/w3codecolor.js"></script>
