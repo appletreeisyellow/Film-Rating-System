@@ -82,10 +82,16 @@
 			$mid = $name = $time = $rating = $comment ="";
 			$MovieID ="";
 			$nameerr = $commerror = "";
+
+			$servername = "localhost";
+			$username = "root";
+			$password = "password";
+			$dbname = "id2605576_minifilmrating";
+
 			//connect to mysql
-			$db_connection = mysql_connect("localhost", "cs143", ""); 
+			$db_connection = mysql_connect($servername, $username, $password); 
 			//select database
-			mysql_select_db("CS143", $db_connection); 
+			mysql_select_db($dbname, $db_connection); 
 			//if the connection fails, output error msg and exit
 			if(!$db_connection){ 
 			  $errmsg = mysql_error($db_connection);
@@ -220,6 +226,10 @@
 	<!-- ========================= Main content end ======================================== -->
 <!-- END MAIN -->
 </div>
+
+<footer class="w3-container w3-padding-16">
+  <div class="w3-center">Copyright &copy 2017 Chunchun Ye. All Rights Reserved</div>
+</footer>
 
 <script src="lib/functions.js"></script>
 <script src="lib/w3codecolor.js"></script>

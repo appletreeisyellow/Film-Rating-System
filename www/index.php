@@ -90,10 +90,15 @@
     }
 
     function insert_person($role, $first, $last, $gender, $dob, $dod){
+      $servername = "localhost";
+      $username = "root";
+      $password = "password";
+      $dbname = "id2605576_minifilmrating";
+
       //connect to mysql
-      $db_connection = mysql_connect("localhost", "cs143", ""); 
+      $db_connection = mysql_connect($servername, $username, $password); 
       //select database
-      mysql_select_db("CS143", $db_connection); 
+      mysql_select_db($dbname, $db_connection); 
       //if the connection fails, output error msg and exit
       if(!$db_connection){ 
           $errmsg = mysql_error($db_connection);

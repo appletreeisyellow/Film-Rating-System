@@ -21,14 +21,48 @@
 
   <div class="w3-bar w3-theme w3-large" style="z-index:4;">
     <a class="w3-bar-item w3-button w3-left w3-hide-large w3-hover-white w3-large w3-theme w3-padding-16" href="javascript:void(0)" onclick="w3_open()">&#9776</a> <!-- ☰ -->
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="addActorDirector.php" title="Add New Content">Add New Content</a>
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="showActor.php" title="Browsering Content">Browsering Content</a>
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="search.php" title="Search">Search Interface</a>
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="javascript:void(0)" onclick="w3_show_nav('menu1')" title="Add New Content">Add New Content</a>
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="javascript:void(0)" onclick="w3_show_nav('menu2')" title="Browsering Content">Browsering Content</a>
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="javascript:void(0)" onclick="w3_show_nav('menu3')" title="Search">Search Interface</a>
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="howToUse.php" title="How To Use">How To Use</a>
   </div>
 </div>
 
 <!-- No Sidebar -->
+<div class="w3-sidebar w3-bar-block w3-collapse" style="z-index:3;width:270px" id="mySidebar">
+  <div class="w3-bar w3-hide-large w3-large">
+    <a href="javascript:void(0)" onclick="w3_show_nav('menu1')" class="w3-bar-item w3-button w3-theme w3-hover-white w3-padding-16" style="width:50%">Add new content</a>
+    <a href="javascript:void(0)" onclick="w3_show_nav('menu2')" class="w3-bar-item w3-button w3-theme w3-hover-white w3-padding-16" style="width:50%">Browsering Content</a>
+    <a href="javascript:void(0)" onclick="w3_show_nav('menu3')" class="w3-bar-item w3-button w3-theme w3-hover-white w3-padding-16" style="width:50%">Search Interface</a>
+  </div>
+    <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-right w3-xlarge w3-hide-large" title="Close Menu">&#9747</a> <!-- x -->
+
+  <div id="menu1" class="myMenu" style="display:none">
+    <div class="w3-container">
+      <h3>Add new content</h3>
+    </div>
+    <a href="addActorDirector.php" class="w3-bar-item w3-button">Add Actor/Director</a>
+    <a href="addMovieInfo.php" class="w3-bar-item w3-button">Add Movie Information</a>
+    <a href="addMovieActor.php" class="w3-bar-item w3-button">Add Movie/Actor Relation</a>
+    <a href="addMovieDirector.php" class="w3-bar-item w3-button">Add Movie/Director Relation</a>
+  </div>
+
+  <div id="menu2" class="myMenu" style="display:none">
+    <div class="w3-container">
+      <h3>Browsering Content</h3>
+    </div>
+    <a href="showActor.php" class="w3-bar-item w3-button">Show Actor Information</a>
+    <a href="showMovie.php" class="w3-bar-item w3-button">Show Movie Information</a>
+  </div>
+
+  <div id="menu3" class="myMenu" style="display:none">
+    <div class="w3-container">
+      <h3>Search Interface</h3>
+    </div>
+    <a href="search.php" class="w3-bar-item w3-button">Search Actor/Movie</a>
+  </div>
+
+</div>
 
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
@@ -54,6 +88,10 @@
 
 <!-- END MAIN -->
 </div>
+
+<footer class="w3-container w3-padding-16">
+  <div class="w3-center">Copyright &copy 2017 Chunchun Ye. All Rights Reserved</div>
+</footer>
 
 <script src="lib/functions.js"></script>
 <script src="lib/w3codecolor.js"></script>

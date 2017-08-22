@@ -83,9 +83,9 @@
 				<!-- php script -->
 				<?php
 					$servername = "localhost";
-					$username = "cs143";
-					$password = "";
-					$dbname = "CS143";
+					$username = "root";
+					$password = "password";
+					$dbname = "id2605576_minifilmrating";
 
 					// Create connection
 					$conn = mysqli_connect($servername, $username, $password, $dbname);
@@ -170,6 +170,10 @@
 
 <!-- END MAIN -->
 </div>
+
+<footer class="w3-container w3-padding-16">
+  <div class="w3-center">Copyright &copy 2017 Chunchun Ye. All Rights Reserved</div>
+</footer>
 
 
 <script src="lib/functions.js"></script>
