@@ -80,27 +80,23 @@
 			//echo ".".$aid.".";
 			if(!empty($aid)){
 				$servername = "localhost";
-				$username = "root";
+				$username = "id2605576_milkchild";
 				$password = "password";
 				$dbname = "id2605576_minifilmrating";
 
-				$db_connection = mysql_connect($servername, $username, $password); 
-				//select database
-				mysql_select_db($dbname, $db_connection); 
-				//if the connection fails, output error msg and exit
-				if(!$db_connection){ 
-				    $errmsg = mysql_error($db_connection);
-				    print "Connection failed: $errmsg <br />";
-				    exit(1);
+				$conn = mysqli_connect($servername, $username, $password, $dbname);
+				// Check connection
+				if (mysqli_connect_errno()) {
+				    die("Connection failed: " . mysqli_connect_error());
 				}
 
 				// Actor Information Table
-				$result = mysql_query("SELECT * FROM Actor WHERE id =$aid", $db_connection); // result is an object
+				$result = mysqli_query($conn, "SELECT * FROM Actor WHERE id =$aid"); // result is an object
 				echo "<p class='w3-large'><b>Actor Information</b></p>";
 				echo "<table class=\"w3-table-all w3-hoverable\">";
 				echo "<tr><th>Name</th> <th>Sex</th> <th>Date of Birth</th> <th>Date of Death</th></tr>";
 
-				while($row = mysql_fetch_row($result)){
+				while($row = mysqli_fetch_row($result)){
 					echo "<tr>";
 					echo "<td>".$row[2]." ".$row[1]."</td>"; //name
 					echo "<td>".$row[3]."</td>";	//gender
@@ -116,15 +112,15 @@
 				echo "</table>";
 				
 				// Movie Role Table
-				$result = mysql_query("SELECT mid, role FROM MovieActor WHERE aid =$aid", $db_connection);
+				$result = mysqli_query($conn, "SELECT mid, role FROM MovieActor WHERE aid =$aid");
 				echo "<br><p class='w3-large'><b>Movie and Role Information</b></p>";
 				echo "<table class=\"w3-table-all w3-hoverable\">";
 				echo "<tr><th>Movie Title</th> <th>Role</th></tr>";
-				while($row = mysql_fetch_row($result)){
+				while($row = mysqli_fetch_row($result)){
 					echo "<tr>";
 					//$row[0] is movie id 
-					$mresult = mysql_query("SELECT title FROM Movie WHERE id = $row[0]", $db_connection);
-					$mrow = mysql_fetch_row($mresult);
+					$mresult = mysqli_query($conn, "SELECT title FROM Movie WHERE id = $row[0]");
+					$mrow = mysqli_fetch_row($mresult);
 					echo "<td><a href=\"showMovie.php?id=$row[0]\" class=\"w3-text-blue\">".$mrow[0]."</td>"; 	//$mrow[0] is MovieTitle
 					echo "<td>".$row[1]."</td>";	//Role
 					echo "<tr>";
@@ -132,9 +128,9 @@
 				echo "</table><br><br>";
 
 				//free result
-				mysql_free_result($result);
+				mysqli_free_result($result);
 				//close connections
-				mysql_close($db_connection);
+				mysqli_close($conn);
 			}
 		?>
 

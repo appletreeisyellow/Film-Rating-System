@@ -84,27 +84,24 @@
 			$nameerr = $commerror = "";
 
 			$servername = "localhost";
-			$username = "root";
+			$username = "id2605576_milkchild";
 			$password = "password";
 			$dbname = "id2605576_minifilmrating";
 
-			//connect to mysql
-			$db_connection = mysql_connect($servername, $username, $password); 
-			//select database
-			mysql_select_db($dbname, $db_connection); 
-			//if the connection fails, output error msg and exit
-			if(!$db_connection){ 
-			  $errmsg = mysql_error($db_connection);
-			  print "Connection failed: $errmsg <br />";
-			  exit(1);
+			// Create connection
+			$conn = mysqli_connect($servername, $username, $password, $dbname);
+			// Check connection
+			if (mysqli_connect_errno()) {
+			    die("Connection failed: " . mysqli_connect_error());
 			}
+
 			$MovieID = $_GET['mid'];
 
 			if(empty($MovieID)){
-				$mresult = mysql_query("SELECT id, title, year FROM Movie", $db_connection); // get movie info
+				$mresult = mysqli_query($conn, "SELECT id, title, year FROM Movie"); // get movie info
 			}
 			else{
-				$mresult = mysql_query("SELECT id, title, year FROM Movie WHERE id = $MovieID");
+				$mresult = mysqli_query($conn, "SELECT id, title, year FROM Movie WHERE id = $MovieID");
 			}
 
 			$msg ="";
@@ -132,12 +129,12 @@
 					$query = "INSERT INTO Review(name, time, mid, rating, comment) VALUES ('$name', '$time', $mid, $rating, '$comment')";
 
 					//if insertion failed, output error message
-					if(mysql_query($query, $db_connection)==TRUE){
+					if(mysqli_query($conn, $query)==TRUE){
 						$msg = "New Record Inserted Successfully<br>";
 					}
 					else{
 					    $msg = "New Record Is Not Inserted<br>";
-					    $errmsg = mysql_error($db_connection);
+					    $errmsg = mysqli_error($$conn);
 					    $msg = $msg.$errmsg;//generate error msg
 					}
 
@@ -157,7 +154,7 @@
 				echo "<SELECT NAME=\"movie\">";  
 				
 				//generate selection box for movie
-				while($row = mysql_fetch_row($mresult)){
+				while($row = mysqli_fetch_row($mresult)){
 					$movieid = $row[0];
 					$movietitle = $row[1];
 					$movieyear = $row[2];
@@ -202,12 +199,12 @@
 
 
 			//free result
-			mysql_free_result($mresult);
-			mysql_free_result($result);
+			mysqli_free_result($mresult);
+			mysqli_free_result($result);
 
 
 			//close connections
-			mysql_close($db_connection);
+			mysqli_close($conn);
 
 		?>
 

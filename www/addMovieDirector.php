@@ -81,23 +81,19 @@
 			$director = $movie ="";
 
 			$servername = "localhost";
-			$username = "root";
+			$username = "id2605576_milkchild";
 			$password = "password";
 			$dbname = "id2605576_minifilmrating";
 
-			//connect to mysql
-			$db_connection = mysql_connect($servername, $username, $password); 
-			//select database
-			mysql_select_db($dbname, $db_connection); 
-			//if the connection fails, output error msg and exit
-			if(!$db_connection){ 
-			  $errmsg = mysql_error($db_connection);
-			  print "Connection failed: $errmsg <br />";
-			  exit(1);
+			// Create connection
+			$conn = mysqli_connect($servername, $username, $password, $dbname);
+			// Check connection
+			if (mysqli_connect_errno()) {
+			    die("Connection failed: " . mysqli_connect_error());
 			}
 
-			$mresult = mysql_query("SELECT id, title, year FROM Movie", $db_connection); // get movie info
-			$dresult = mysql_query("SELECT id, first, last, dob FROM Director", $db_connection); //get director info
+			$mresult = mysqli_query($conn, "SELECT id, title, year FROM Movie"); // get movie info
+			$dresult = mysqli_query($conn, "SELECT id, first, last, dob FROM Director"); //get director info
 
 		?>
 
@@ -107,7 +103,7 @@
 		<?php 
 		//generate selection box for movie
 		echo "<option value=\"\" disabled selected></option>"; // empty option
-		while($row = mysql_fetch_row($mresult)){
+		while($row = mysqli_fetch_row($mresult)){
 			$movieid = $row[0];
 			$movietitle = $row[1];
 			$movieyear = $row[2];
@@ -121,7 +117,7 @@
 		<?php 
 		//generate selection box for director
 		echo "<option value=\"\" disabled selected></option>"; // empty option
-		while($row = mysql_fetch_row($dresult)){
+		while($row = mysqli_fetch_row($dresult)){
 			$directorid = $row[0];
 			$directorname = $row[1]." ".$row[2];
 			$directordob = $row[3];
@@ -151,12 +147,12 @@
 		  	$query = "INSERT INTO MovieDirector(mid, did) VALUES ($mid, $did)";
 
 			  //if insertion failed, output error message
-			  if(mysql_query($query, $db_connection)==TRUE){
+			  if(mysqli_query($conn, $query)==TRUE){
 			    echo "<p class=\"w3-text-grey\">New Record Inserted Successfully</p><br>";
 			  }
 			  else{
 			    echo "<p class=\"w3-text-grey\">New Record Is Not Inserted</p>";
-			    $errmsg = mysql_error($db_connection);
+			    $errmsg = mysqli_error($conn);
 			    echo "<p class=\"w3-text-grey\">";
 			    echo $errmsg;
 			    echo "</p><br>";
@@ -164,11 +160,11 @@
 		  }
 		}
 		//free result
-		mysql_free_result($mresult);
-		mysql_free_result($dresult);
+		mysqli_free_result($mresult);
+		mysqli_free_result($dresult);
 
 		//close connections
-		mysql_close($db_connection);
+		mysqli_close($conn);
 
 		?>
 

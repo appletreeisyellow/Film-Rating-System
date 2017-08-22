@@ -112,37 +112,33 @@
 
     function insert_movie($title, $year, $company, $rating,$genre){
       $servername = "localhost";
-      $username = "root";
+      $username = "id2605576_milkchild";
       $password = "password";
       $dbname = "id2605576_minifilmrating";
 
-      //connect to mysql
-      $db_connection = mysql_connect($servername, $username, $password); 
-      //select database
-      mysql_select_db($dbname, $db_connection); 
-      //if the connection fails, output error msg and exit
-      if(!$db_connection){ 
-          $errmsg = mysql_error($db_connection);
-          print "Connection failed: $errmsg <br />";
-          exit(1);
+      // Create connection
+      $conn = mysqli_connect($servername, $username, $password, $dbname);
+      // Check connection
+      if (mysqli_connect_errno()) {
+          die("Connection failed: " . mysqli_connect_error());
       }
 
-      $result = mysql_query("SELECT id FROM MaxMovieID", $db_connection); // result is an object
-      $row = mysql_fetch_row($result);
+      $result = mysqli_query($conn, "SELECT id FROM MaxMovieID"); // result is an object
+      $row = mysqli_fetch_row($result);
       $ID = $row[0]+1;
       //echo $ID."<br>";
       $query = "INSERT INTO Movie(id, title, year, rating, company) VALUES ($ID, '$title', $year, '$rating', '$company')";
 
       $msg = "";
 
-      if(mysql_query($query, $db_connection)==TRUE){
+      if(mysqli_query($conn, $query)==TRUE){
         $msg =  "New Record Inserted Successfully<br>";
         $query = "UPDATE MaxMovieID SET id=$ID";
-        mysql_query($query, $db_connection);
+        mysqli_query($conn, $query);
         $query = "SELECT * FROM Movie WHERE id = $ID";
-        $result = mysql_query($query, $db_connection);
+        $result = mysqli_query($conn, $query);
 
-        while($row = mysql_fetch_row($result)) {
+        while($row = mysqli_fetch_row($result)) {
           $id = $row[0];
           $tit = $row[1];
           $y = $row[2];
@@ -152,23 +148,23 @@
         }
         //insert genre into moviegenre table
         $query = "INSERT INTO MovieGenre(mid,genre) VALUES($ID,'$genre')";
-        if(mysql_query($query, $db_connection)==TRUE){
+        if(mysqli_query($conn, $query)==TRUE){
           //$msg = $msg."<br>Insert Into Table MovieGenre Successfully";
         }
 
       }
       else{
         $msg = "New Record Is Not Inserted<br>";
-        $errmsg = mysql_error($db_connection);
+        $errmsg = mysqli_error($conn);
         $msg = $msg."<br>".$errmsg;
       }
       return $msg;
       //free result
-      mysql_free_result($result);
+      mysqli_free_result($result);
 
 
       //close connections
-      mysql_close($db_connection); 
+      mysqli_close($conn); 
 
     }
     ?>

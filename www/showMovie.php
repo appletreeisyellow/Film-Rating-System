@@ -81,7 +81,7 @@
 			if(!is_null($id)) {
 
 				$servername = "localhost";
-				$username = "root";
+				$username = "id2605576_milkchild";
 				$password = "password";
 				$dbname = "id2605576_minifilmrating";
 

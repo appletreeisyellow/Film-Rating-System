@@ -81,23 +81,19 @@
 			$roleerror ="";
 
 			$servername = "localhost";
-			$username = "root";
+			$username = "id2605576_milkchild";
 			$password = "password";
 			$dbname = "id2605576_minifilmrating";
 
-			//connect to mysql
-			$db_connection = mysql_connect($servername, $username, $password); 
-			//select database
-			mysql_select_db($dbname, $db_connection); 
-			//if the connection fails, output error msg and exit
-			if(!$db_connection){ 
-			  $errmsg = mysql_error($db_connection);
-			  print "Connection failed: $errmsg <br />";
-			  exit(1);
+			// Create connection
+			$conn = mysqli_connect($servername, $username, $password, $dbname);
+			// Check connection
+			if (mysqli_connect_errno()) {
+			    die("Connection failed: " . mysqli_connect_error());
 			}
 
-			$mresult = mysql_query("SELECT id, title, year FROM Movie", $db_connection); // get movie info
-			$aresult = mysql_query("SELECT id, first, last, dob FROM Actor", $db_connection); //get actor info
+			$mresult = mysqli_query($conn, "SELECT id, title, year FROM Movie"); // get movie info
+			$aresult = mysqli_query($conn, "SELECT id, first, last, dob FROM Actor"); //get actor info
 		?>
 
 		<?php 
@@ -125,12 +121,12 @@
 				$query = "INSERT INTO MovieActor(mid, aid, role) VALUES ($mid, $aid,'$role')";
 
 				//if insertion failed, output error message
-				if(mysql_query($query, $db_connection)==TRUE){
+				if(mysqli_query($conn, $query)==TRUE){
 					$msg = "New Record Inserted Successfully<br>";
 				}
 				else{
 				    $msg = "New Record Is Not Inserted<br>";
-				    $errmsg = mysql_error($db_connection);
+				    $errmsg = mysqli_error($conn);
 				    $msg = $msg.$errmsg;
 				}
 			}
@@ -147,7 +143,7 @@
 
 			//generate selection box for movie
 			echo "<option value=\"\" disabled selected></option>"; // empty option
-			while($row = mysql_fetch_row($mresult)){
+			while($row = mysqli_fetch_row($mresult)){
 				$movieid = $row[0];
 				$movietitle = $row[1];
 				$movieyear = $row[2];
@@ -161,7 +157,7 @@
 			<?php 
 			//generate selection box for actor
 			echo "<option value=\"\" disabled selected></option>"; // empty option
-			while($row = mysql_fetch_row($aresult)){
+			while($row = mysqli_fetch_row($aresult)){
 				$actorid = $row[0];
 				$actorname = $row[1]." ".$row[2];
 				$actordob = $row[3];
@@ -185,11 +181,11 @@
 			echo $msg;
 			echo "</p>";
 			//free result
-			mysql_free_result($mresult);
-			mysql_free_result($aresult);
+			mysqli_free_result($mresult);
+			mysqli_free_result($aresult);
 
 			//close connections
-			mysql_close($db_connection);
+			mysqli_close($conn);
 
 		?>
 
