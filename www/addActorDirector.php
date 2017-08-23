@@ -78,7 +78,7 @@
     <?php
 
     $role = $first = $last = $gender = $DOB = $dobmonth = $dobday = $dodyear = $dodmonth = $dodday = "";
-    $doderr = $doberr = $firsterr = $lasterr = $roleerr = $gendererr = "";
+    $doderr = $doberr = $firsterr = $lasterr = $roleerr = $gendererr = $output = "";
     //function validate_input
     //Strip unnecessary characters (extra space, tab, newline) 
     //get rid of  back slash 
@@ -298,7 +298,7 @@
     </form>
     <?php 
       echo "<p class=\"w3-text-gray\">";
-      //echo $output;
+      echo $output;
       echo "</p><br>";
     ?>
   </div>

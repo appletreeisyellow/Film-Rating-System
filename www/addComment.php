@@ -81,7 +81,7 @@
 		<?php
 			$mid = $name = $time = $rating = $comment ="";
 			$MovieID ="";
-			$nameerr = $commerror = "";
+			$nameerr = $commerror = $mresult = $msg = $result = "";
 
 			$servername = "localhost";
 			$username = "id2605576_milkchild";
@@ -103,8 +103,6 @@
 			else{
 				$mresult = mysqli_query($conn, "SELECT id, title, year FROM Movie WHERE id = $MovieID");
 			}
-
-			$msg ="";
 
 			//add movie comment into table Review
 			if($_SERVER["REQUEST_METHOD"] == "POST"){
