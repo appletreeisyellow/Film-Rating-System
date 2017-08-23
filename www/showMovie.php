@@ -75,11 +75,10 @@
 		<p class="w3-xlarge"><b>Movie Information Page</b></p>
 
 		<?php
+			$id = "";
 
-			$id = $_GET['id'];
-
-			if(!is_null($id)) {
-
+			if(isset($_POST['id'])) {
+				$id = $_POST['id'];
 				$servername = "localhost";
 				$username = "id2605576_milkchild";
 				$password = "password";
@@ -205,7 +204,7 @@
 
 		<!-- Search Bar & Botton -->
 		<div style="padding: 10px 0px;">
-			<form method="get" action="search.php?searchKey=$searchKey">
+			<form method="post" action="search.php?searchKey=$searchKey">
 				<input class="searchBar" type="text" name="searchKey" placeholder="Search.."><br><br>
 				<input class="w3-button w3-theme w3-hover-white" type="submit" value="New Search"><br>
 			</form>

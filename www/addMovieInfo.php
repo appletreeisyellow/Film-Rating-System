@@ -77,7 +77,8 @@
 
     <?php
     $title = $year = $company = $rating = $genre = "";
-    $titleerr = $yearerr = $comerr = $genreerr = "";
+    $titleerr = $yearerr = $comerr = $genreerr = $ratingerr = "";
+    $msg = "";
     $gvalue = array('Action','Adult','Adventure','Animation','Comedy','Crime','Documentary','Drama','Family','Fantasy','Horror','Musical','Mystery','Romance','Sci-Fi','Short','Thriller','War','Western');
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {

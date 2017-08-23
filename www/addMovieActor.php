@@ -98,7 +98,7 @@
 
 		<?php 
 
-		$msg ="";
+		$msg = $miderror = $aiderror = "";
 		//add movie director into table MovieDirector
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 			$mid = $_POST["movie"];

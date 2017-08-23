@@ -76,9 +76,10 @@
 		<p class="w3-xlarge"><b>Actor Information Page</b></p>
 
 		<?php
-			$aid = $_GET['id'];
-			//echo ".".$aid.".";
-			if(!empty($aid)){
+			$aid = "";
+			
+			if(isset($_POST['id'])){
+				$aid = $_POST['id'];
 				$servername = "localhost";
 				$username = "id2605576_milkchild";
 				$password = "password";
@@ -136,7 +137,7 @@
 
 		<!-- Search Bar & Botton -->
 		<div style="padding: 10px 0px;">
-			<form method="get" action="search.php?searchKey=$searchKey">
+			<form method="post" action="search.php?searchKey=$searchKey">
 				<input class="searchBar" type="text" name="searchKey" placeholder="Search.."><br><br>
 				<input class="w3-button w3-theme w3-hover-white" type="submit" value="New Search"><br>
 			</form>

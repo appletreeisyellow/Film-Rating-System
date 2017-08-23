@@ -94,13 +94,8 @@
 					    die("Connection failed: " . mysqli_connect_error());
 					}
 
-					$searchKey = $_GET['searchKey'];
-
-					// Collect value of search bar
-					if($searchKey == "") {
-						echo "<p class=\"w3-text-grey\">Please enter an actor/actress/movie name.</p>";
-					} else {
-
+					if(isset($_GET['searchKey'])) {
+						$searchKey = $_GET['searchKey'];
 						$keyArr = explode(" ", $searchKey);
 
 						// Actor query 
@@ -161,8 +156,12 @@
 							// Free result set
 							mysqli_free_result($movie_result);
 						}
+					} else {
+						echo "<p class=\"w3-text-grey\">Please enter an actor/actress/movie name.</p>";
 					}
+
 					mysqli_close($conn);
+					
 				?>
 			</form><br>
 		</div> <!-- End of Search Bar & Botton -->

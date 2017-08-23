@@ -78,7 +78,7 @@
 		<!-- retrieve movie and director info from database -->
 		<?php 
 			
-			$director = $movie ="";
+			$director = $movie = $miderror = "";
 
 			$servername = "localhost";
 			$username = "id2605576_milkchild";
@@ -135,6 +135,7 @@
 		if($_SERVER["REQUEST_METHOD"] == "POST"){
 		  $mid = $_POST["movie"];
 		  $did = $_POST["director"];
+		  $errmsg = "";
 
 		  if(empty($mid)) {
 		  	$miderror = "Movie is required";
